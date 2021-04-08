@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { useDispatch } from 'react-redux'
 import { Form, Button } from "react-bootstrap";
 
 const BASE_URL = 'http://localhost:3000'
@@ -7,6 +8,8 @@ const Login = () => {
 
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
+
+    const dispatch = useDispatch()
 
 
 
@@ -34,6 +37,14 @@ const Login = () => {
           .then(data => { 
             localStorage.setItem("token",data.jwt)
             // username is passed back as  Add to Store
+            dispatch({
+              type: 'SET_USERNAME',
+              username: JSON.parse(data.user).username
+            })
+            dispatch({
+              type: 'SET_LOGGED_IN',
+              loggedIn: true
+            })
             // JSON.parse(data.user).username
           })
     

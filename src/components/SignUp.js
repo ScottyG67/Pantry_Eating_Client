@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { useDispatch } from 'react-redux'
 import { Form, Button } from "react-bootstrap";
 const BASE_URL = 'http://localhost:3000'
 
@@ -7,6 +8,8 @@ const SignUp = () => {
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [username,setUsername] = useState("")
+
+    const dispatch = useDispatch()
 
     const signup = (e) => {
         e.preventDefault()
@@ -30,7 +33,14 @@ const SignUp = () => {
           .then(res => res.json())
           .then(data => { 
             localStorage.setItem("token",data.jwt)
-            debugger
+            dispatch({
+              type: 'SET_USERNAME',
+              username: JSON.parse(data.user).username
+            })
+            dispatch({
+              type: 'SET_LOGGED_IN',
+              loggedIn: true
+            })
         })
         e.target.reset()
         setEmail("")
