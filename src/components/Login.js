@@ -1,8 +1,8 @@
 import {useState} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
 
-const BASE_URL = 'http://localhost:3000'
+
 
 const Login = () => {
 
@@ -10,7 +10,7 @@ const Login = () => {
     const [password,setPassword] = useState("")
 
     const dispatch = useDispatch()
-
+    const BASE_URL = useSelector(state => state.BASE_URL)
 
 
     const login = (e) => {
