@@ -14,10 +14,7 @@ const Login = () => {
 
 
     const login = (e) => {
-
         e.preventDefault()
-        
-    
         let reqObj = {
           headers: {
             "Content-Type": "application/json",
@@ -35,24 +32,58 @@ const Login = () => {
         fetch(`${BASE_URL}/api/v1/login`, reqObj)
           .then(res => res.json())
           .then(data => { 
-            localStorage.setItem("token",data.jwt)
-            // username is passed back as  Add to Store
-            dispatch({
-              type: 'SET_USERNAME',
-              username: JSON.parse(data.user).username
-            })
-            dispatch({
-              type: 'SET_LOGGED_IN',
-              loggedIn: true
-            })
-            // JSON.parse(data.user).username
+            setUserLogin(data)
+            // getSavedData(data)
           })
-    
-        e.target.reset()
+          .catch(error => {
+            console.log(error)
+            alert("there was an error")})
+
         setEmail("")
         setPassword("")
-        
       }
+
+    const setUserLogin = (data) => {
+      localStorage.setItem("token",data.jwt)
+      dispatch({
+        type: 'SET_USERNAME',
+        username: JSON.parse(data.user).username
+      })
+      dispatch({
+        type: 'SET_USER_ID',
+        userId: JSON.parse(data.user).id
+      })
+      dispatch({
+        type: 'SET_LOGGED_IN',
+        loggedIn: true
+      })
+    }
+
+    const getSavedData =(data) => {
+      
+      const token = data.jwt
+      const userId = JSON.parse(data.user).id
+
+      const reqObj = {
+          method: "GET",
+          headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+          } 
+      }
+      fetch(`${BASE_URL}/api/v1/users/${userId}/recipes`,reqObj)
+          .then( resp => resp.json() )
+          .then(recipes => {dispatch({
+                  type:'SAVE_RECIPE',
+                  userRecipe: recipes
+              })
+              }
+          )
+          .catch(error => {
+            console.log(error)
+            alert("there was an error")})
+    }
 
 
     return (

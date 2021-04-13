@@ -12,6 +12,10 @@ const Logout = () => {
             username: ""
         })
         dispatch({
+            type: 'SET_USER_ID',
+            username: ''
+        })
+        dispatch({
             type: 'SET_LOGGED_ID',
             loggedIn: false
         })

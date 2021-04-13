@@ -40,6 +40,10 @@ const SignUp = () => {
               username: JSON.parse(data.user).username
             })
             dispatch({
+              type: 'SET_USER_ID',
+              username: JSON.parse(data.user).id
+            })
+            dispatch({
               type: 'SET_LOGGED_IN',
               loggedIn: true
             })
