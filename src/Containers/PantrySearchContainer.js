@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 import {Container, Row, Col, CardDeck, Card} from 'react-bootstrap'
 
 import NewPantryItemForm from '../components/NewPantryItemForm'
-import PantryItemCard from '../components/PantryItemCard'
+import PantryItemCard from '../components/PantryItems/PantryItemCard'
 
 const Pantry = () => {
     const pantryItems = useSelector(state => state.pantryItems)
@@ -17,38 +17,35 @@ const Pantry = () => {
 
     const dispatch = useDispatch()
 
-    useEffect( ()=>{
-        if(userId !== ""){
-            getPantry()
-        }
-    },[userId])
+    // useEffect( ()=>{
+    //     if(userId !== ""){
+    //         getPantry()
+    //     }
+    // },[userId])
 
-    useEffect( ()=>{
-        // console.log(itemSearchResults)
-    })
 
-    const getPantry = () => {
+    // const getPantry = () => {
         
-        const reqObj = {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            } 
-        }
-        fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items`,reqObj)
-            .then( resp => resp.json() )
-            .then(items => {dispatch({
-                    type:'SET_PANTRY_ITEMS',
-                    pantryItems: items
-                })
-                }
-            )
-            .catch(error => {
-              console.log(error)
-              alert("there was an error")})
-    }
+    //     const reqObj = {
+    //         method: "GET",
+    //         headers: {
+    //             Authorization: `Bearer ${token}`,
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         } 
+    //     }
+    //     fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items`,reqObj)
+    //         .then( resp => resp.json() )
+    //         .then(items => {dispatch({
+    //                 type:'SET_PANTRY_ITEMS',
+    //                 pantryItems: items
+    //             })
+    //             }
+    //         )
+    //         .catch(error => {
+    //           console.log(error)
+    //           alert("there was an error")})
+    // }
 
     const saveItem = (item) => {
         console.log(`saving ${item}`)
@@ -79,42 +76,42 @@ const Pantry = () => {
             })
     }
 
-    const deleteItem = (item) => {
-        debugger
+    // const deleteItem = (item) => {
+    //     debugger
         
-        const reqObj = {
-            method: "DELETE",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-        }
+    //     const reqObj = {
+    //         method: "DELETE",
+    //         headers: {
+    //             Authorization: `Bearer ${token}`,
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         },
+    //     }
 
-        fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items/${item.id}`,reqObj)
-            .then( resp => resp.json() )
-            .then(deletedItem => {
-                console.log(deletedItem)
-                dispatch({
-                    type:'DELETE_PANTRY_ITEM',
-                    deletedItem: deletedItem
-                })
-                alert("Item Deleted")
-                }
-            ) 
-    }
+    //     fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items/${item.id}`,reqObj)
+    //         .then( resp => resp.json() )
+    //         .then(deletedItem => {
+    //             console.log(deletedItem)
+    //             dispatch({
+    //                 type:'DELETE_PANTRY_ITEM',
+    //                 deletedItem: deletedItem
+    //             })
+    //             alert("Item Deleted")
+    //             }
+    //         ) 
+    // }
 
 
     return (
         <div>
              <Container>
                 <Row>
-                    <Col>
+                    {/* <Col>
                         <h2>Your Pantry</h2>
                         <div class = "flex-grid">
                             {pantryItems.map(item => <PantryItemCard key = {item.id} item = {item} clickAction={deleteItem} btnTxt={"Delete"}/>) }
                         </div>
-                    </Col>
+                    </Col> */}
                     <Col>
                         <h2>Add New Items</h2>
                         <NewPantryItemForm />

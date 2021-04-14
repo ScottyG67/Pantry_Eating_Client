@@ -6,6 +6,7 @@ export const initialState = {
 	searchRecipes: [],
 	savedRecipes: [],
 	pantryItems:[],
+	pantry:[],
 	itemSearchResults:[],
 	pantryCats:[]
 }
@@ -32,12 +33,12 @@ export const reducer = (state, action) => {
 					...state,
 					searchRecipes: action.searchRecipes
 				}
-			case 'SET_SAVED_RECIPE':
+			case 'SET_SAVED_RECIPES':
 				return {
 					...state,
 					savedRecipes: action.savedRecipes
 				}
-			case 'SAVE_RECIPE':
+			case 'SAVE_RECIPES':
 				return {
 					...state,
 					savedRecipes: [...state.savedRecipes,action.savedRecipes]
@@ -72,6 +73,11 @@ export const reducer = (state, action) => {
 				return {
 					...state,
 					pantryCats: action.pantryCats
+				}
+			case 'SET_PANTRY':
+				return {
+					...state,
+					pantry: action.pantry
 				}
 
 			default:

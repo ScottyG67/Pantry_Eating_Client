@@ -85,7 +85,7 @@ const Recipes = () => {
         fetch(`${BASE_URL}/api/v1/users/${userId}/recipes`,reqObj)
             .then( resp => resp.json() )
             .then(recipes => {dispatch({
-                    type:'SET_SAVED_RECIPE',
+                    type:'SET_SAVED_RECIPES',
                     savedRecipes: recipes
                 })
                 }
@@ -102,11 +102,9 @@ const Recipes = () => {
                     <Col>
                         <h1>Search Column</h1>
                         <RecipesSearchForm />
-                        {/* <CardDeck> */}
                         <div class = "flex-grid">
                             {searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {saveRecipe} btnTxt={'Save'}/>)}
                         </div>
-                        {/* {/* </CardDeck> */}
                     </Col>
                     {userId!==""?<Col>
                         <h1>Your Recipes</h1>
