@@ -8,10 +8,12 @@ export const initialState = {
 	pantryItems:[],
 	pantry:[],
 	itemSearchResults:[],
-	pantryCats:[]
+	pantryCats:[],
+	showCategoryForm:false
 }
 
 export const reducer = (state, action) => {
+	
     switch (action.type) {
 			case 'SET_USERNAME':
 				return {
@@ -44,7 +46,6 @@ export const reducer = (state, action) => {
 					savedRecipes: [...state.savedRecipes,action.savedRecipes]
 				}
 			case 'DELETE_RECIPE':
-				debugger
 				return {
 					...state,
 					savedRecipes: state.savedRecipes.filter( (recipe) => {return recipe.id !== action.deletedRecipe.id} )
@@ -55,10 +56,7 @@ export const reducer = (state, action) => {
 					pantryItems: action.pantryItems
 				}
 			case 'SAVE_PANTRY_ITEM':
-				return {
-					...state,
-					pantryItems: [...state.pantryItems, action.pantryItem]
-				}
+				state.pantry.find(cat => cat.id === action.pantryItem.pantry_category.id).pantry_items.push(action.pantryItem)
 			case 'DELETE_PANTRY_ITEM':
 				return {
 					...state,
@@ -78,6 +76,16 @@ export const reducer = (state, action) => {
 				return {
 					...state,
 					pantry: action.pantry
+				}
+			case 'NEW_CATEGORY':
+				return {
+					...state,
+					pantry:[...state.pantry,action.newCategory]
+				}
+			case 'TOGGLE_SHOW_CATEGORY_FORM':
+				return {
+					...state,
+					showCategoryForm: !state.showCategoryForm
 				}
 
 			default:

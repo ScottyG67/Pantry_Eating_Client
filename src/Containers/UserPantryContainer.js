@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {Container, Row, Col, CardDeck, Card, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {FolderPlus} from 'react-bootstrap-icons'
 
 import PantryItemCard from '../components/PantryItems/PantryItemCard'
 import PantryItemListElement from '../components/PantryItems/PantryItemListElement'
 import PantryCategoryContainer from './PantryCategoryContainer'
+import NewCategoryForm from '../components/newCategoryForm'
 
 const UserPantry = () => {
     const pantry = useSelector(state => state.pantry)
@@ -12,6 +14,7 @@ const UserPantry = () => {
     const pantryCats = useSelector(state => state.pantryCats)
     const BASE_URL = useSelector(state => state.BASE_URL)
     const userId = useSelector(state => state.userId)
+    const newCatForm = useSelector(state => state.showCategoryForm)
     const token = localStorage.getItem('token')
     
 
@@ -38,15 +41,10 @@ const UserPantry = () => {
         fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_categories`,reqObj)
             .then( resp => resp.json() )
             .then(pantry => {
-                    debugger
                 dispatch({
                     type:'SET_PANTRY',
                     pantry: pantry
                 })
-                //     dispatch({
-                //     type:'SET_PANTRY_ITEMS',
-                //     pantryItems: items
-                // })
                 }
             )
             .catch(error => {
@@ -62,7 +60,7 @@ const UserPantry = () => {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
                 "Accept": "application/json"
-            },
+            }
         }
 
         fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items/${item.id}`,reqObj)
@@ -78,6 +76,39 @@ const UserPantry = () => {
             ) 
     }
 
+    const newCat = () => {
+        debugger
+
+        const catName = "New Category"
+
+        const reqObj = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({catName: catName})
+        }
+
+        fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_categories`,reqObj)
+            .then( resp => resp.json() )
+            .then(newCategory => {
+                dispatch({
+                    type:'NEW_CATEGORY',
+                    newCategory: newCategory
+                })
+                }
+            ) 
+    }
+
+    const toggleShowForm =() =>{
+        dispatch({
+            type:'TOGGLE_SHOW_CATEGORY_FORM',
+            showCategoryForm: !newCatForm
+        })
+    }
+
 
     return (
         <div className="sidebar">
@@ -85,7 +116,7 @@ const UserPantry = () => {
             <div>
                 <ListGroup>
                     {pantry.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={deleteItem}/>)}
-                    <ListGroup.Item action variant="dark" >Add Another Category</ListGroup.Item>
+                    {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
                     <ListGroup.Item action variant="dark">Add New Item</ListGroup.Item>
                 </ListGroup>
                 {/* <ListGroup>

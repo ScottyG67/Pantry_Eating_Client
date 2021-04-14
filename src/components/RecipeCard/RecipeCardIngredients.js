@@ -3,9 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import RecipeCardIngredient from './RecipeCardIngredient'
 
 const RecipeCardIngredients = ({recipe}) => {
-    
-    const pantryItems = useSelector(state => state.pantryItems)
-    
 
     return (
                 <Card.Body>

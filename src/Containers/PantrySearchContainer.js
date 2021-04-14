@@ -65,6 +65,7 @@ const Pantry = () => {
             .then( resp => resp.json() )
             .then(savedItem => {
                 console.log(savedItem)
+                
                 dispatch({
                     type:'SAVE_PANTRY_ITEM',
                     pantryItem: savedItem
