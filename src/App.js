@@ -4,7 +4,7 @@ import './App.css';
 // import Main from './containers/Main'
 import RecipesContainer from './containers/RecipesContainer'
 import Pantry from './containers/PantryContainer'
-import LoginPage from "./containers/LoginPage";
+import LoginPage from "./containers/LoginPage"
 import Logout from './components/Logout'
 
 import { useDispatch, useSelector } from 'react-redux';

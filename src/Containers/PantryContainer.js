@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import {useEffect} from 'react'
+import {Container, Row, Col, CardDeck, Card} from 'react-bootstrap'
 
 import NewPantryItemForm from '../components/NewPantryItemForm'
 import PantryItemCard from '../components/PantryItemCard'
@@ -21,6 +22,10 @@ const Pantry = () => {
             getPantry()
         }
     },[userId])
+
+    useEffect( ()=>{
+        // console.log(itemSearchResults)
+    })
 
     const getPantry = () => {
         
@@ -75,24 +80,53 @@ const Pantry = () => {
     }
 
     const deleteItem = (item) => {
-        console.log('not working')
+        debugger
+        
+        const reqObj = {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+        }
+
+        fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items/${item.id}`,reqObj)
+            .then( resp => resp.json() )
+            .then(deletedItem => {
+                console.log(deletedItem)
+                dispatch({
+                    type:'DELETE_PANTRY_ITEM',
+                    deletedItem: deletedItem
+                })
+                alert("Item Deleted")
+                }
+            ) 
     }
 
 
     return (
         <div>
-            <div>
-            <h2>Your Pantry</h2>
-            <div>
-                {pantryItems.map(item => <PantryItemCard key = {item.id} item = {item} clickAction={deleteItem} btnTxt={"Delete-not working"}/>) }
-            </div>
-            </div>
-            <h2>Add New Items</h2>
-            <NewPantryItemForm />
-            <div>
-                {itemSearchResults.map(item => <PantryItemCard key = {item.ext_id} item={item} clickAction={saveItem} btnTxt = {"Save"} />)}
-            </div>
-
+             <Container>
+                <Row>
+                    <Col>
+                        <h2>Your Pantry</h2>
+                        <div class = "flex-grid">
+                            {pantryItems.map(item => <PantryItemCard key = {item.id} item = {item} clickAction={deleteItem} btnTxt={"Delete"}/>) }
+                        </div>
+                    </Col>
+                    <Col>
+                        <h2>Add New Items</h2>
+                        <NewPantryItemForm />
+                        <div class = "flex-grid">
+                            {itemSearchResults.map(item => { 
+                                return <PantryItemCard item={item} clickAction={saveItem} btnTxt = {"Save"} />
+                                })
+                            }
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }

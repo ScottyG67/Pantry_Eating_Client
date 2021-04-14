@@ -39,7 +39,6 @@ const NewPantryItemForm = () => {
         fetch(`${BASE_URL}/api/v1/users/${userId}/item_search`,reqObj)
             .then( resp => resp.json() )
             .then(items => {
-                console.log(items.hints)
                 dispatch({
                     type:'SET_ITEM_SEARCH_RESULTS',
                     itemSearchResults: items
@@ -53,15 +52,56 @@ const NewPantryItemForm = () => {
               alert("there was an error")})
     }
 
+    const upcSearch = (e) => {
+        alert("upc search currently non functional")
+        const imageFile = e.target.files[0]
+        debugger
+        // var barcodeDetector = new BarcodeDetector({formats: ['code_39', 'codabar', 'ean_13']});
+        // BarcodeDetector.getSupportedFormats()
+        // .then(supportedFormats => {
+    
+        //   const barcodeDetector = new BarcodeDetector({formats: supportedFormats})
+        //   const reader = new FileReader();
+    
+        //   reader.onload = function(e) {
+        //     const img = new Image()
+        //     img.src = e.target.result
+    
+        //     img.decode().then(() => {
+        //       barcodeDetector.detect(img)
+        //       .then(barcodes => {
+        //         barcodes.forEach(barcode => console.log(barcode));
+        //       })
+        //       .catch(err => {
+        //         console.log(err);
+        //       })
+        //     })
+        //   };
+    
+        //   reader.readAsDataURL(imageFile);
+        // });
+      }
+
     return (
         <div>
         <h1>Find Item</h1>
+
         <Form id="upc_search" onSubmit = {handleSearch}>
             <Form.Label>UPC</Form.Label>
             <Form.Group controlId="searchQuery">
                 <Form.Control type="text" placeholder="Search" value ={upc} onChange = {(e) => setUpc(e.target.value)}/>
             </Form.Group>
             <Button variant="primary" type="submit">Submit</Button>
+        </Form>
+        <h3>Or</h3>
+        <Form>
+        <Form.Label>UPC Barcode Picture</Form.Label>
+            <Form.File 
+                id="custom-file"
+                label="Upload Picture"
+                custom
+                onChange = {upcSearch}
+            />
         </Form>
         <h3>Or</h3>
         <Form id="text_search"  onSubmit = {handleSearch}>

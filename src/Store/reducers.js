@@ -58,6 +58,11 @@ export const reducer = (state, action) => {
 					...state,
 					pantryItems: [...state.pantryItems, action.pantryItem]
 				}
+			case 'DELETE_PANTRY_ITEM':
+				return {
+					...state,
+					pantryItems: state.pantryItems.filter( (item) => {return item.id !== action.deletedItem.id} )
+				}
 			case 'SET_ITEM_SEARCH_RESULTS':
 				return {
 					...state,

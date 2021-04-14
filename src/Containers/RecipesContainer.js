@@ -1,10 +1,10 @@
 import react from 'react'
 import {Container, Row, Col, CardDeck, Card} from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
+import {useDispatch, useSelector } from 'react-redux'
 import {useEffect} from 'react'
 
 import RecipesSearchForm from '../components/RecipesSearchForm'
-import RecipeCard from '../components/RecipeCard'
+import RecipeCard from '../components/RecipeCard/RecipeCard'
 
 const Recipes = () => {
 
@@ -23,7 +23,6 @@ const Recipes = () => {
     },[userId])
     
     const saveRecipe = (recipe) => {
-        // console.log(token)
         // console.log(recipe)
 
         const reqObj = {
@@ -50,7 +49,7 @@ const Recipes = () => {
     }
 
     const deleteRecipe = (recipe) => {
-        alert("try again later")
+
         const reqObj = {
             method: "DELETE",
             headers: {
@@ -58,7 +57,6 @@ const Recipes = () => {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            // body: JSON.stringify(recipe)
         }
 
         fetch(`${BASE_URL}/api/v1/users/${userId}/recipes/${recipe.id}`,reqObj)
@@ -113,13 +111,11 @@ const Recipes = () => {
                     {userId!==""?<Col>
                         <h1>Your Recipes</h1>
                         <div class = "flex-grid">
-                            {savedRecipes.map(recipe => <RecipeCard recipe={recipe}  clickAction = {deleteRecipe} btnTxt={'delete - not working'}/>)}
+                            {savedRecipes.map(recipe => <RecipeCard recipe={recipe}  clickAction = {deleteRecipe} btnTxt={'Delete'}/>)}
                         </div>
                     </Col>:null}
                 </Row>
             </Container>
-            
-
         </div>
     )
 }

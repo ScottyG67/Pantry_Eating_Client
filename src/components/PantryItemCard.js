@@ -1,22 +1,8 @@
 import {Container, Row, Col, Card, ListGroup, Button} from 'react-bootstrap'
 
 const PantryItemCard = ({item,clickAction, btnTxt}) => {
-    // debugger
 
     const {image,name} = item
-
-    // if(item.food){
-    //     var image = item.food.image
-    //     var name = item.food.name
-    // } else {
-    //     var image = item.image
-    //     var name = item.name
-    // }
-
-    const handleClick = () => {
-        console.log(item)
-        clickAction(item)
-    }
 
     return (
         <Col style ={{padding: '10px'}}>
@@ -25,7 +11,7 @@ const PantryItemCard = ({item,clickAction, btnTxt}) => {
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                 </Card.Body>
-                <Button onClick ={handleClick}>{btnTxt}</Button>
+                <Button onClick ={()=>{clickAction(item)}}>{btnTxt}</Button>
             </Card>
         </Col>
 
