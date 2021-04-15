@@ -32,8 +32,10 @@ const NewCategoryForm = () => {
                     type:'NEW_CATEGORY',
                     newCategory: newCategory
                 })
+                setName("")
                 }
             ) 
+        
     }
 
     return (

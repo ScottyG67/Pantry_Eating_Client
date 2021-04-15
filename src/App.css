@@ -73,6 +73,15 @@
   font-size: 1.2rem;
 }
 
+.pantry_list_item {
+  border: 1px solid lightslategray;
+  border-radius: 2px;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: white;
+  
+}
+
 
 /* @media (min-width: 1000px) {
   .flex-grid { grid-template-columns: repeat(2, 1fr); }

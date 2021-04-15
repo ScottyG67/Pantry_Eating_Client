@@ -60,12 +60,12 @@ const BasicLoginForm = () => {
 
     return (
         <div>
-            <Form inline onSubmit = {login}>
+            <Form inline  onSubmit = {login} >
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Control type="email" placeholder="Email" value ={email} onChange = {(e) => setEmail(e.target.value)}/>
+                    <Form.Control className="mr-sm-2" type="email" placeholder="Email" value ={email} onChange = {(e) => setEmail(e.target.value)}/>
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Password" value={password} onChange = {(e) => setPassword(e.target.value)}/>
+                    <Form.Control className="mr-sm-2" type="password" placeholder="Password" value={password} onChange = {(e) => setPassword(e.target.value)}/>
                 </Form.Group>
                 <Button variant="primary" type="submit">Submit</Button>
             </Form>

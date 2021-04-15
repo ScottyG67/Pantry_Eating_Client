@@ -29,11 +29,12 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar fixed="top">
+      <Navbar bg = 'light' expand = 'lg' fixed="top">
         <Navbar.Brand>Pantry Eating</Navbar.Brand>
-        {loggedIn? <Logout />:showLoginForm?<BasicLoginForm />:<Button onClick={()=>{setShowLoginForm(!showLoginForm)}} >Login</Button>}
+        {loggedIn? <Logout className="mr-sm-2"/>:showLoginForm?<BasicLoginForm />:<Button onClick={()=>{setShowLoginForm(!showLoginForm)}} className="mr-sm-2">Login</Button>}
         {loggedIn?null:showLoginPage?null:<Button onClick={()=>{setShowLoginPage(!showLoginPage)}} >SignUp</Button>}
       </Navbar>
+      
       {showLoginPage?<LoginPage />:null}
       <Col>
         <RecipesContainer />

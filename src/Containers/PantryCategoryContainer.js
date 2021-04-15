@@ -1,19 +1,28 @@
-import {Container, Row, Col, Card, ListGroup, Button, ListGroupItem, Collapse} from 'react-bootstrap'
+import {useState, useEffect} from 'react'
+import {Droppable} from 'react-beautiful-dnd';
+import {ListGroup, Accordion} from 'react-bootstrap'
+
 import PantryItemListElement from '../components/PantryItems/PantryItemListElement'
-import {useState} from 'react'
+
+
 
 const PantryCategoryContainer = ({category,clickAction}) => {
-    const [open, setOpen] = useState(true);
+    useEffect( ()=>{console.log("pantry category container")})
 
     return (
-        <>
-            <ListGroup.Item variant ='primary' onClick ={()=> setOpen(!open)}>{category.name}</ListGroup.Item>
-            <Collapse in={open}>
-                <ListGroup>
-                    {category.pantry_items.map(item=> <PantryItemListElement key = {item.id} item = {item} clickAction={clickAction} btnTxt={"View"} />)}
-                </ListGroup>
-            </Collapse>
-        </>
+        <Accordion>
+            <Accordion.Toggle as={ListGroup.Item} eventKey="0" variant ='primary'>{category.name}</Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                    <Droppable droppableId={category.id.toString()}>
+                        {(provided) => (
+                            <ListGroup {...provided.droppableProps} ref={provided.innerRef}>
+                                {category.pantry_items.map((item,index)=> <PantryItemListElement key = {item.id} item = {item} clickAction={clickAction} index={index} />)}
+                                {provided.placeholder}
+                            </ListGroup>
+                        )}
+                    </Droppable>
+                </Accordion.Collapse>
+        </Accordion>
 
     )
 }

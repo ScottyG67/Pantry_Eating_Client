@@ -15,7 +15,7 @@ const RecipeCard = ({recipe,clickAction, btnTxt}) => {
         // console.log(recipeData)
         clickAction(recipe)
     }
-
+    
     return (
         <Col style ={{padding: '10px'}}>
             <Card style={{ width: '18rem' }}>
