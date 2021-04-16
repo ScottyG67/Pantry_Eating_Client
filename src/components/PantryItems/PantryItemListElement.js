@@ -8,7 +8,6 @@ const PantryItemListElement = ({item, clickAction, index}) => {
     const [showCard,setShowCard] = useState(false)
 
     const {image,name} = item
-
     return (
        
         <Draggable key={item.id.toString()} draggableId={item.id.toString()} index={index}>

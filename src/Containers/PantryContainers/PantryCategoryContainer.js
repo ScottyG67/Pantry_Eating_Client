@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import {Droppable} from 'react-beautiful-dnd';
 import {ListGroup, Accordion} from 'react-bootstrap'
 
-import PantryItemListElement from '../components/PantryItems/PantryItemListElement'
+import PantryItemListElement from '../../components/PantryItems/PantryItemListElement'
 
 
 

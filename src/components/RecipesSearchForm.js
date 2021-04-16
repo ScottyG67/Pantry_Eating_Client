@@ -34,6 +34,13 @@ const RecipesSearchForm = () => {
         .catch(console.log)
     }
 
+    const done = () => {
+        dispatch({
+            type: 'SET_RECIPES',
+            searchRecipes: []
+        })
+    }
+
     return (
         <div>
             <h1>Find Your Next Meal</h1>
@@ -42,6 +49,7 @@ const RecipesSearchForm = () => {
                     <Form.Control type="text" placeholder="Search" value ={searchText} onChange = {(e) => setSearchText(e.target.value)}/>
                 </Form.Group>
                 <Button variant="primary" type="submit">Submit</Button>
+                <Button variant ="secondary" onClick={done}>Done</Button>
             </Form>
         </div>
     )

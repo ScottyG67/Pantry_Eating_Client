@@ -7,7 +7,7 @@ import { DragDropContext} from 'react-beautiful-dnd';
 // import PantryItemCard from '../components/PantryItems/PantryItemCard'
 // import PantryItemListElement from '../components/PantryItems/PantryItemListElement'
 import PantryCategoryContainer from './PantryCategoryContainer'
-import NewCategoryForm from '../components/newCategoryForm'
+import NewCategoryForm from '../../components/NewCategoryForm'
 
 const UserPantry = () => {
     const pantry = useSelector(state => state.pantry)

@@ -87,6 +87,10 @@ export const reducer = (state, action) => {
 					...state,
 					showCategoryForm: !state.showCategoryForm
 				}
+			case 'RESET':
+				return {
+					initialState
+				}
 
 			default:
 				return state;

@@ -1,14 +1,12 @@
-import react from 'react'
+
 import {Container, Row, Col, CardDeck, Card} from 'react-bootstrap'
 import {useDispatch, useSelector } from 'react-redux'
 import {useEffect} from 'react'
 
-import RecipesSearchForm from '../components/RecipesSearchForm'
-import RecipeCard from '../components/RecipeCard/RecipeCard'
+import RecipeCard from '../../components/RecipeCard/RecipeCard'
 
-const Recipes = () => {
+const UserRecipesContainer = () => {
 
-    const searchRecipes = useSelector(state => state.searchRecipes).map(recipe => recipe) //search
     const savedRecipes = useSelector(state => state.savedRecipes) //saved
     const BASE_URL = useSelector(state => state.BASE_URL)
     const userId = useSelector(state => state.userId)
@@ -22,31 +20,6 @@ const Recipes = () => {
         }
     },[userId])
     
-    const saveRecipe = (recipe) => {
-        // console.log(recipe)
-
-        const reqObj = {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(recipe)
-        }
-
-        fetch(`${BASE_URL}/api/v1/users/${userId}/recipes`,reqObj)
-            .then( resp => resp.json() )
-            .then(savedRecipe => {
-                console.log(savedRecipe)
-                dispatch({
-                    type:'SAVE_RECIPE',
-                    savedRecipes: savedRecipe
-                })
-                alert("Recipe Saved")
-                }
-            )   
-    }
 
     const deleteRecipe = (recipe) => {
 
@@ -96,16 +69,8 @@ const Recipes = () => {
     }
 
     return(
-        <div>
             <Container>
                 <Row>
-                    <Col>
-                        <h1>Search Column</h1>
-                        <RecipesSearchForm />
-                        <div class = "flex-grid">
-                            {searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {saveRecipe} btnTxt={'Save'}/>)}
-                        </div>
-                    </Col>
                     {userId!==""?<Col>
                         <h1>Your Recipes</h1>
                         <div class = "flex-grid">
@@ -114,8 +79,7 @@ const Recipes = () => {
                     </Col>:null}
                 </Row>
             </Container>
-        </div>
     )
 }
 
-export default Recipes
+export default UserRecipesContainer

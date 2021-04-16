@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import RecipeCardIngredient from './RecipeCardIngredient'
 
 const RecipeCardIngredients = ({recipe}) => {
+    
 
     return (
                 <Card.Body>
