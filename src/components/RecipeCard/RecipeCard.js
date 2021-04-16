@@ -11,10 +11,7 @@ const RecipeCard = ({recipe,clickAction, btnTxt}) => {
     const [toggleIngredients, setToggleIngredients] = useState(true)
 
     const loggedIn = useSelector(state => state.loggedIn)
-    const handleClick = (e) => {
-        // console.log(recipeData)
-        clickAction(recipe)
-    }
+
     
     return (
         <Col style ={{padding: '10px'}}>

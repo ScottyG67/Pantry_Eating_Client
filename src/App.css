@@ -42,6 +42,9 @@
   top: 0;
   left: 0
 }
+.nav-btn-left {
+  text-align: right;
+}
 
 .flex-grid {
   margin: 0 auto;
@@ -83,7 +86,9 @@
   
 }
 
-
+body {
+  padding-top: 65px;
+}
 /* @media (min-width: 1000px) {
   .flex-grid { grid-template-columns: repeat(2, 1fr); }
 } */

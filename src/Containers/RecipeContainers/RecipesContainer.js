@@ -68,7 +68,7 @@ const Recipes = () => {
                     type:'DELETE_RECIPE',
                     deletedRecipe: deletedRecipe
                 })
-                alert("Recipe Deleted")
+                alert("Add Bootstrap Modal?")
                 }
             ) 
     }

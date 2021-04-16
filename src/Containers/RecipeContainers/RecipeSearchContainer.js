@@ -37,7 +37,7 @@ const RecipesSearchContainer = () => {
                     type:'SAVE_RECIPE',
                     savedRecipes: savedRecipe
                 })
-                alert("Recipe Saved")
+                alert("Add Bootstrap Modal")
                 }
             )   
     }
