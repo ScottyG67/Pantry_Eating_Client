@@ -37,6 +37,10 @@ const APIPantrySearch = () => {
                     type:'SAVE_PANTRY_ITEM',
                     pantryItem: savedItem
                 })
+                dispatch({
+                    type:'SET_ITEM_SEARCH_RESULTS',
+                    itemSearchResults: []
+                })
             })
             .catch(error => {
               console.log(error)
@@ -45,22 +49,16 @@ const APIPantrySearch = () => {
     }
 
     return (
-        // <div>
-             <Container>
-                {/* <Row> */}
-                    {/* <Col> */}
-                        <h2>Add New Items</h2>
-                        <NewPantryItemForm />
-                        <div class = "flex-grid">
-                            {itemSearchResults.map(item => { 
-                                return <PantryItemCard item={item} clickAction={saveItem} btnTxt = {"Save"} />
-                                })
-                            }
-                        </div>
-                    {/* </Col> */}
-                {/* </Row> */}
-            </Container>
-        // </div>
+        <Container>
+            <h2>Add New Items</h2>
+            <NewPantryItemForm />
+            <div class = "flex-grid">
+                {itemSearchResults.map(item => { 
+                    return <PantryItemCard item={item} clickAction={saveItem} btnTxt = {"Save"} />
+                    })
+                }
+            </div>
+        </Container>
     )
 }
 

@@ -17,6 +17,7 @@ import LoginPage from "./containers/LoginPage"
 import Logout from './components/Logout'
 import BasicLoginForm from './components/BasicLoginForm'
 import About from './components/About'
+import PantryPage from './containers/PantryPageContiners/PantryPage'
 
 
 
@@ -40,7 +41,7 @@ function App() {
         <Navbar.Brand>Pantry Eating</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          {/* <Nav.Link href="/">My Pantry</Nav.Link> */}
+          <Nav.Link href="/my_pantry">My Pantry</Nav.Link>
           <Nav.Link href="/about">About Us</Nav.Link>
         </Nav>
         {loggedIn? <Logout className="mr-sm-2"/>:showLoginForm?<BasicLoginForm />:<Button onClick={()=>{setShowLoginForm(!showLoginForm)}} className="mr-sm-2">Login</Button>}
@@ -61,7 +62,7 @@ function App() {
             </Route>
 
             <Route exact path ='/my_pantry'>
-
+               <PantryPage />
             </Route>
             
             <Route exact path =  '/about'>

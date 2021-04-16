@@ -8,7 +8,14 @@ const PantryItemListElement = ({item, clickAction, index}) => {
 
     const {image,name} = item
     return (
+       <>
        
+                {/* <div>
+                    <div className='pantry_list_item' onClick={()=>{setShowCard(!showCard)}}>
+                        {name}
+                    </div>
+                    {showCard?<Container><PantryItemCard key = {item.id} item = {item} clickAction={clickAction} btnTxt={"Delete"}/></Container>:null}
+                </div> */}
         <Draggable key={item.id.toString()} draggableId={item.id.toString()} index={index}>
             {(provided) => (
                 <div>
@@ -25,7 +32,7 @@ const PantryItemListElement = ({item, clickAction, index}) => {
            )}
             
         </Draggable>
-        
+        </>
 
     )
 }

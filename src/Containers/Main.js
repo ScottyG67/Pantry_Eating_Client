@@ -1,8 +1,9 @@
 import {Row, Col, Container} from 'react-bootstrap'
 
-import APIPantrySearch from '../containers/PantryContainers/PantrySearchContainer'
-import UserPantry from './PantryContainers/UserPantryContainer'
+import APIPantrySearch from './PantrySidbarContainers/PantrySearchContainer'
+import UserPantry from './PantrySidbarContainers/UserPantryContainer'
 import RecipesContainer from './RecipeContainers/RecipesContainer'
+import PantryPage from './PantryPageContiners/PantryPage'
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,11 +11,8 @@ const Main = () => {
 
   const loggedIn = useSelector(state => state.loggedIn)
     return (
-      <>
-        <div>
-          <h1>Welcome to Pantry Eating</h1>
-          <p>Some text about our mission</p>
-        </div>
+      <> 
+
         <Container>
           <Row>
           {loggedIn? <Col>
