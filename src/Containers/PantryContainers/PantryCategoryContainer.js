@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import {Droppable} from 'react-beautiful-dnd';
 import {ListGroup, Accordion} from 'react-bootstrap'
 

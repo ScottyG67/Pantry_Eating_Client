@@ -1,5 +1,4 @@
-import {Container, Row, Col, Card, ListGroup, Button, ListGroupItem} from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux';
+import {Card, ListGroup, ListGroupItem} from 'react-bootstrap'
 import RecipeCardIngredient from './RecipeCardIngredient'
 
 const RecipeCardIngredients = ({recipe}) => {

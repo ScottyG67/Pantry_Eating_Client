@@ -89,7 +89,7 @@ export const reducer = (state, action) => {
 				}
 			case 'RESET':
 				return {
-					initialState
+					...initialState
 				}
 
 			default:

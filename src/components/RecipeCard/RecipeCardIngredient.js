@@ -1,5 +1,5 @@
-import {Container, Row, Col, Card, ListGroup, Button, ListGroupItem} from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux';
+import {Col, ListGroup} from 'react-bootstrap'
+import { useSelector } from 'react-redux';
 import {HandThumbsUpFill, HandThumbsDownFill} from 'react-bootstrap-icons'
 
 const RecipeCardIngredient = ({ingredient}) => {

@@ -1,5 +1,5 @@
 
-import {Container, Row, Col, Button, CardDeck, Card} from 'react-bootstrap'
+import {Container, Row, Col} from 'react-bootstrap'
 import {useDispatch, useSelector } from 'react-redux'
 
 
@@ -42,16 +42,12 @@ const RecipesSearchContainer = () => {
             )   
     }
 
-
-
-
     return(
 
             <Container>
                 <Row>
                     <Col>
                         <RecipesSearchForm />
-                        
                         <div class = "flex-grid">
                             {searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {saveRecipe} btnTxt={'Save'}/>)}
                         </div>

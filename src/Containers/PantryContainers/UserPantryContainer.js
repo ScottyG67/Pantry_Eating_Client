@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
-import {useEffect, useState} from 'react'
-import {Container, Row, Col, CardDeck, Card, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {useEffect} from 'react'
+import {ListGroup} from 'react-bootstrap'
 import {FolderPlus} from 'react-bootstrap-icons'
 import { DragDropContext} from 'react-beautiful-dnd';
 
@@ -73,32 +73,6 @@ const UserPantry = () => {
                     deletedItem: deletedItem
                 })
                 alert("Item Deleted")
-                }
-            ) 
-    }
-
-    const newCat = () => {
-        debugger
-
-        const catName = "New Category"
-
-        const reqObj = {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({catName: catName})
-        }
-
-        fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_categories`,reqObj)
-            .then( resp => resp.json() )
-            .then(newCategory => {
-                dispatch({
-                    type:'NEW_CATEGORY',
-                    newCategory: newCategory
-                })
                 }
             ) 
     }

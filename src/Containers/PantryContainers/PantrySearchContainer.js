@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import {Container, Row, Col, CardDeck, Card} from 'react-bootstrap'
+import {Container} from 'react-bootstrap'
 
 import NewPantryItemForm from '../../components/NewPantryItemForm'
 import PantryItemCard from '../../components/PantryItems/PantryItemCard'

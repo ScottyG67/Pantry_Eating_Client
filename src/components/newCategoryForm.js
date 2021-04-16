@@ -40,13 +40,14 @@ const NewCategoryForm = () => {
 
     return (
         <div>
-            <h1>Find Your Next Meal</h1>
+            <br/>
             <Form onSubmit = {newCat}>
                 <Form.Group controlId="catName">
-                    <Form.Control type="text" placeholder="Search" value ={name} onChange = {(e) => setName(e.target.value)}/>
+                    <Form.Control type="text" placeholder="New Category" value ={name} onChange = {(e) => setName(e.target.value)}/>
                 </Form.Group>
                 <Button variant="primary" type="submit">Submit</Button>
             </Form>
+            <br/>
         </div>
     )
 

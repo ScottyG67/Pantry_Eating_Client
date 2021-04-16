@@ -1,7 +1,5 @@
-import {Navbar, NavDropdown, Form, Button,Row, Col, Container} from 'react-bootstrap'
+import {Row, Col, Container} from 'react-bootstrap'
 
-import LoginPage from "./LoginPage";
-import Logout from '../components/Logout'
 import APIPantrySearch from '../containers/PantryContainers/PantrySearchContainer'
 import UserPantry from './PantryContainers/UserPantryContainer'
 import RecipesContainer from './RecipeContainers/RecipesContainer'

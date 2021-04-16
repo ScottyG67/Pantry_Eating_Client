@@ -1,4 +1,4 @@
-import {Container, Row, Col, Card, ListGroup, Button} from 'react-bootstrap'
+import {Card, ListGroup} from 'react-bootstrap'
 
 
 const RecipeCardBasicView = ({recipe}) => {
