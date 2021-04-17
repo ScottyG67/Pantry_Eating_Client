@@ -91,7 +91,6 @@ export const reducer = (state, action) => {
 				return {
 					...initialState
 				}
-
 			default:
 				return state;
 		}

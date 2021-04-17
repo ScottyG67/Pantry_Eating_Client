@@ -4,6 +4,8 @@ import { Form, Button } from "react-bootstrap";
 
 
 
+
+
 const BasicLoginForm = () => {
 
     const [email,setEmail] = useState("")
@@ -13,8 +15,11 @@ const BasicLoginForm = () => {
     const BASE_URL = useSelector(state => state.BASE_URL)
 
 
+
     const login = (e) => {
         e.preventDefault()
+
+
         let reqObj = {
           headers: {
             "Content-Type": "application/json",
@@ -33,6 +38,7 @@ const BasicLoginForm = () => {
           .then(res => res.json())
           .then(data => { 
             setUserLogin(data)
+            getPantry(data)
           })
           .catch(error => {
             console.log(error)
@@ -57,6 +63,31 @@ const BasicLoginForm = () => {
         loggedIn: true
       })
     }
+
+const getPantry = (data) => {
+  
+  const userId = JSON.parse(data.user).id
+  const reqObj = {
+      method: "GET",
+      headers: {
+          Authorization: `Bearer ${data.jwt}`,
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+      } 
+  }
+  fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_categories`,reqObj)
+      .then( resp => resp.json() )
+      .then(pantry => {
+          dispatch({
+              type:'SET_PANTRY',
+              pantry: pantry
+          })
+          }
+      )
+      .catch(error => {
+        console.log(error)
+        alert("there was an error")})
+  }
 
     return (
         <div>

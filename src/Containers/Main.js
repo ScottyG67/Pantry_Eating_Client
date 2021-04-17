@@ -6,10 +6,21 @@ import RecipesContainer from './RecipeContainers/RecipesContainer'
 import PantryPage from './PantryPageContiners/PantryPage'
 
 import { useDispatch, useSelector } from 'react-redux';
+import {useEffect} from 'react'
 
-const Main = () => {
+
+const Main = ({history}) => {
 
   const loggedIn = useSelector(state => state.loggedIn)
+  
+  useEffect(()=>{
+    if(!loggedIn){
+      history.push('/')
+    }
+  })
+
+
+  
     return (
       <> 
 

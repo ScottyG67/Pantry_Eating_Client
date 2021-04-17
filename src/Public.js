@@ -1,9 +1,18 @@
 import {Row, Col, Container} from 'react-bootstrap'
 
+import { useDispatch, useSelector } from 'react-redux';
+import {useEffect} from 'react'
+
 import RecipesContainer from './containers/RecipeContainers/RecipesContainer'
 
 
-const Public = () => {
+const Public = ({history}) => {
+  const loggedIn = useSelector(state => state.loggedIn)
+  useEffect(()=>{
+    if(loggedIn){
+      history.push('/home')
+    }
+  })
 
     return (
       <>

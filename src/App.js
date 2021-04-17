@@ -1,15 +1,18 @@
 
 import './App.css';
-import {Navbar, Nav, Button} from 'react-bootstrap'
+import {Navbar, Nav, Button, ListGroup} from 'react-bootstrap'
 import {useState, useEffect} from 'react'
 import {useSelector } from 'react-redux';
 
-import { 
-  BrowserRouter as Router, 
-  Route, 
-  Redirect,
-  Switch
-} from 'react-router-dom';
+// import { 
+//   BrowserRouter as Router, 
+//   Route, 
+//   Redirect,
+//   Switch
+// } from 'react-router-dom';
+
+import {Router, Route} from 'react-router'
+import history from './history'
 
 import Public from './Public'
 import Main from './containers/Main'
@@ -18,6 +21,7 @@ import Logout from './components/Logout'
 import BasicLoginForm from './components/BasicLoginForm'
 import About from './components/About'
 import PantryPage from './containers/PantryPageContiners/PantryPage'
+
 
 
 
@@ -33,6 +37,7 @@ function App() {
       setShowLoginPage(false)
     }
   },[loggedIn])
+  
 
 
   return (
@@ -40,36 +45,25 @@ function App() {
       <Navbar bg = 'light' expand = 'lg' fixed="top">
         <Navbar.Brand>Pantry Eating</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/my_pantry">My Pantry</Nav.Link>
-          <Nav.Link href="/about">About Us</Nav.Link>
+          <Nav.Link onClick={()=>history.push('/')}>Home</Nav.Link>
+          <Nav.Link onClick={()=>history.push("/my_pantry")}>My Pantry</Nav.Link>
+          <Nav.Link onClick={()=>history.push("/about")}>About Us</Nav.Link>
         </Nav>
         {loggedIn? <Logout className="mr-sm-2"/>:showLoginForm?<BasicLoginForm />:<Button onClick={()=>{setShowLoginForm(!showLoginForm)}} className="mr-sm-2">Login</Button>}
-        {loggedIn?null:showLoginPage?null:<Button className="nav-btn-left" onClick={()=>{setShowLoginPage(!showLoginPage)}} >SignUp</Button>}
+        {loggedIn?null:showLoginPage?null:<Button className="nav-btn-left" onClick={()=>history.push('/signup')} >SignUp</Button>}
       </Navbar>
-      <Router>
-          <Switch>
-            <Route exact path ='/' >
-              {loggedIn?<Redirect to='/home' /> :<Public />}
-            </Route>
-
-            <Route exact path = '/home'>
-              {loggedIn? <Main /> : <Redirect to='/'/>}
-            </Route>
-
-            <Route exact path ='/signup'>
-              {loggedIn? <Redirect to='/' /> :<LoginPage />}
-            </Route>
-
-            <Route exact path ='/my_pantry'>
-               <PantryPage />
-            </Route>
-            
+      <Router history={history}>
+          
+            <Route exact path ='/' component={(props)=><Public {...props}/> } />
+            <Route exact path = '/home' component={(props)=><Main {...props}/> } />
+            <Route exact path ='/login' component={(props)=><LoginPage {...props}/> } />
+            <Route exact path ='/signup' component={(props)=><LoginPage {...props}/> } />
+            <Route exact path ='/my_pantry' component={(props)=><PantryPage {...props}/> } />
             <Route exact path =  '/about'>
               <About />
             </Route>
 
-          </Switch>
+          
       </Router>
     </div>
   );

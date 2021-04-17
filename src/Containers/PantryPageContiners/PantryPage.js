@@ -10,6 +10,7 @@ import { DragDropContext} from 'react-beautiful-dnd';
 import PantryCatCard from '../../components/PantryCategory/PantryCatCard'
 import NewCategoryForm from '../../components/NewCategoryForm'
 
+
 const PantryPage = () => {
     const pantry = useSelector(state => state.pantry)
     const BASE_URL = useSelector(state => state.BASE_URL)

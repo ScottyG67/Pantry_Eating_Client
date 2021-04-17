@@ -32,7 +32,8 @@ const APIPantrySearch = () => {
             .then( resp => resp.json() )
             .then(savedItem => {
                 console.log(savedItem)
-                
+
+                debugger
                 dispatch({
                     type:'SAVE_PANTRY_ITEM',
                     pantryItem: savedItem
