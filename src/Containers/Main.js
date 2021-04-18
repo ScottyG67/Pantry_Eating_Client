@@ -23,7 +23,10 @@ const Main = ({history}) => {
   
     return (
       <> 
-
+      <Container>
+        <Col xs={2} id="sidebar-wrapper">
+          {loggedIn?<UserPantry />:null}
+        </Col>
         <Container>
           <Row>
           {loggedIn? <Col>
@@ -34,9 +37,7 @@ const Main = ({history}) => {
             </Col>
           </Row>
         </Container>
-        <Col xs={2} id="sidebar-wrapper">
-          {loggedIn?<UserPantry />:null}
-        </Col>
+      </Container>
       </>
 
     )

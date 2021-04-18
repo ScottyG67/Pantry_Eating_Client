@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
 import {DashSquare} from 'react-bootstrap-icons'
 
-const SimplePantryItemForm = ({toggleShow}) => {
+const SimplePantryItemForm = ({toggleShowForm,toggleShowRes}) => {
     const [searchText, setSearchText] = useState("")
     const dispatch = useDispatch()
     const BASE_URL = useSelector(state => state.BASE_URL) 
@@ -13,7 +13,7 @@ const SimplePantryItemForm = ({toggleShow}) => {
     const handleSearch = (e) => {
         e.preventDefault()
         let bodyInfo = ""
-         
+        toggleShowRes() 
         bodyInfo = JSON.stringify({
             searchType: 'ingr',
             search: searchText
@@ -37,7 +37,7 @@ const SimplePantryItemForm = ({toggleShow}) => {
                     itemSearchResults: items
                 })
                 setSearchText("")
-
+                
             })
             .catch(error => {
               console.log(error)
@@ -47,13 +47,12 @@ const SimplePantryItemForm = ({toggleShow}) => {
     return (
         <>
         <Form id="text_search"  onSubmit = {handleSearch}>
-            {/* <Form.Label>Item Name</Form.Label> */}
             <Form.Group controlId="searchQuery">
                 <Form.Control type="text" autofocus="true" placeholder="Search" value ={searchText} onChange = {(e) => setSearchText(e.target.value)}/>
             </Form.Group>
             <Button variant="primary" type="submit">Submit</Button>
         </Form>
-        <DashSquare onClick={toggleShow} />
+        <DashSquare onClick={toggleShowForm} />
         </>
     )
 

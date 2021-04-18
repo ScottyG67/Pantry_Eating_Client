@@ -1,14 +1,15 @@
 import {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {Droppable} from 'react-beautiful-dnd';
 import {ListGroup, Accordion} from 'react-bootstrap'
+
 
 import PantryItemListElement from '../../components/PantryItems/PantryItemListElement'
 
 
-
 const PantryCategoryContainer = ({category,clickAction}) => {
-    useEffect( ()=>{console.log("pantry category container")})
-
+    const pantryItems = useSelector(state => state.pantryItems).filter(item => item.pantry_category_id === category.id)
+    
     return (
         <Accordion defaultActiveKey="0">
             <Accordion.Toggle as={ListGroup.Item} eventKey="0" variant ='primary'>{category.name}</Accordion.Toggle>
@@ -16,7 +17,7 @@ const PantryCategoryContainer = ({category,clickAction}) => {
                     <Droppable droppableId={category.id.toString()}>
                         {(provided) => (
                             <ListGroup {...provided.droppableProps} ref={provided.innerRef}>
-                                {category.pantry_items.map((item,index)=> <PantryItemListElement key = {item.id} item = {item} clickAction={clickAction} index={index} />)}
+                                {pantryItems.map((item,index)=> <PantryItemListElement key = {item.id} item = {item} clickAction={clickAction} index={index} />)}
                                 {provided.placeholder}
                             </ListGroup>
                         )}

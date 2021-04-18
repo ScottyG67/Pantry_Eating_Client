@@ -56,7 +56,16 @@ export const reducer = (state, action) => {
 					pantryItems: action.pantryItems
 				}
 			case 'SAVE_PANTRY_ITEM':
-				state.pantry.find(cat => cat.id === action.pantryItem.pantry_category.id).pantry_items.push(action.pantryItem)
+				return {
+					...state,
+					pantryItems: [...state.pantryItems,action.pantryItem]
+				}
+			case 'UPDATE_PANTRY_ITEM':
+				return {
+					...state,
+					pantryItems: [...state.pantryItems.filter(item => item.id !== action.pantryItem.id), action.pantryItem]
+				}
+				
 			case 'DELETE_PANTRY_ITEM':
 				return {
 					...state,
@@ -80,7 +89,7 @@ export const reducer = (state, action) => {
 			case 'NEW_CATEGORY':
 				return {
 					...state,
-					pantry:[...state.pantry,action.newCategory]
+					pantryCats:[...state.pantryCats,action.newCategory]
 				}
 			case 'TOGGLE_SHOW_CATEGORY_FORM':
 				return {

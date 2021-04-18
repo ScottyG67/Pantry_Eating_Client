@@ -9,25 +9,23 @@ import NewCategoryForm from '../../components/NewCategoryForm'
 
 
 const UserPantry = () => {
-    const pantry = useSelector(state => state.pantry)
-    // const pantryItems = useSelector(state => state.pantryItems)
-    // const pantryCats = useSelector(state => state.pantryCats)
+    const pantryCats = useSelector(state => state.pantryCats)
+    const pantryItems = useSelector(state => state.pantryItems)
     const BASE_URL = useSelector(state => state.BASE_URL)
     const userId = useSelector(state => state.userId)
     const newCatForm = useSelector(state => state.showCategoryForm)
     const token = localStorage.getItem('token')
     
-
-
     const dispatch = useDispatch()
 
     useEffect( ()=>{
         if(userId !== ""){
+            getCategories()
             getPantry()
         }
     },[userId])
 
-    const getPantry = () => {
+    const getCategories = () => {
         
         const reqObj = {
             method: "GET",
@@ -44,6 +42,34 @@ const UserPantry = () => {
                 dispatch({
                     type:'SET_PANTRY',
                     pantry: pantry
+                })
+                dispatch({
+                    type:'SET_PANTRY_CATS',
+                    pantryCats: pantry
+                })
+                }
+            )
+            .catch(error => {
+              console.log(error)
+              alert("there was an error")})
+    }
+
+    const getPantry = () => {
+        
+        const reqObj = {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            } 
+        }
+        fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items`,reqObj)
+            .then( resp => resp.json() )
+            .then(pantryItems => {
+                dispatch({
+                    type:'SET_PANTRY_ITEMS',
+                    pantryItems: pantryItems
                 })
                 }
             )
@@ -85,7 +111,7 @@ const UserPantry = () => {
 
 
     const dragEnd = (result) =>{
-
+        
         const { destination, source, draggableId} = result
         if (!destination){
             return
@@ -94,37 +120,20 @@ const UserPantry = () => {
             return
         }
 
-        let updatedPantry = pantry.map(cat => cat)
-
         // grab moved item and source list
-        const sourceCat = updatedPantry.find(cat=> cat.id == source.droppableId)
-        const sourceIndex = updatedPantry.findIndex(cat=> cat.id == source.droppableId)
-        let sourceItemList = sourceCat.pantry_items.map(item=> item)
-        const movedItem = sourceCat.pantry_items.find( item => item.id == draggableId)
-        
+        const movedItem = pantryItems.find(item => item.id === parseInt(draggableId))
+        // update Cat ID
+        movedItem.pantry_category_id = parseInt(destination.droppableId)
 
-        // Remove Item from original location
-        sourceItemList.splice(source.index,1)
-        updatedPantry[sourceIndex].pantry_items = sourceItemList
-
-        // grab destination list (done after removal)
-        const destCat = updatedPantry.find(cat=> cat.id == destination.droppableId)
-        const destCatIndex = updatedPantry.findIndex(cat=> cat.id == destination.droppableId)
-        let destItemList = destCat.pantry_items.map(item=> item)
-
-        // Add item to new location
-        destItemList.splice(destination.index,0,movedItem)
-        updatedPantry[destCatIndex].pantry_items = destItemList
 
         //update Redux
         dispatch({
-            type:'SET_PANTRY',
-            pantry: pantry
+            type:'UPDATE_PANTRY_ITEM',
+            pantryItem: movedItem
         })
 
-        //update server
+        // //update server
         
-
         const reqObj = {
             method: "PATCH",
             headers: {
@@ -132,7 +141,7 @@ const UserPantry = () => {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({pantry_item: movedItem, category_id:destCat.id})
+            body: JSON.stringify({pantry_item: movedItem})
         }
 
         fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items/${movedItem.id}`,reqObj)
@@ -148,7 +157,7 @@ const UserPantry = () => {
             <div>
             <DragDropContext onDragEnd={dragEnd}>
                 <ListGroup>
-                    {pantry.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={deleteItem}/>)}
+                    {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={deleteItem}/>)}
                     {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
                     <ListGroup.Item action variant="dark">Add New Item</ListGroup.Item>
                 </ListGroup>

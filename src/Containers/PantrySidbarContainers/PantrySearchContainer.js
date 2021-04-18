@@ -25,7 +25,7 @@ const APIPantrySearch = () => {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify(item)
+            body: JSON.stringify({pantry_item:item})
         }
 
         fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items`,reqObj)

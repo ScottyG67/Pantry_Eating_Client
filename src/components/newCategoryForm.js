@@ -43,7 +43,7 @@ const NewCategoryForm = () => {
             <br/>
             <Form onSubmit = {newCat}>
                 <Form.Group controlId="catName">
-                    <Form.Control type="text" autofocus="true" placeholder="Category" value ={name} onChange = {(e) => setName(e.target.value)}/>
+                    <Form.Control type="text" autoFocus placeholder="Category" value ={name} onChange = {(e) => setName(e.target.value)}/>
                 </Form.Group>
                 <Button variant="primary" type="submit">Submit</Button>
             </Form>
