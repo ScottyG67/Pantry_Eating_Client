@@ -9,9 +9,19 @@ import { DragDropContext} from 'react-beautiful-dnd';
 
 import PantryCatCard from '../../components/PantryCategory/PantryCatCard'
 import NewCategoryForm from '../../components/NewCategoryForm'
+import ConfirmDelete from '../../components/ConfirmDelete'
 
 
-const PantryPage = () => {
+const PantryPage = ({history}) => {
+
+    const loggedIn = useSelector(state => state.loggedIn)
+  
+    useEffect(()=>{
+      if(!loggedIn){
+        history.push('/')
+      }
+    })
+    
     const pantryCats = useSelector(state => state.pantryCats)
     const pantryItems = useSelector(state => state.pantryItems)
     const BASE_URL = useSelector(state => state.BASE_URL)
@@ -20,6 +30,8 @@ const PantryPage = () => {
     const token = localStorage.getItem('token')
 
     const [showForm, setShowForm] = useState(false)
+    const [show, setShow] = useState(false);
+    const [item,setItem] = useState({})
     
     const dispatch = useDispatch()
 
@@ -82,7 +94,16 @@ const PantryPage = () => {
               alert("there was an error")})
     }
 
-    const deleteItem = (item) => {
+    const handleShowWarning = (item) => {
+        setShow(true);
+        setItem(item)
+    }
+    const handleCloseWarning = () => {
+        setShow(false);
+        setItem({})
+    }
+
+    const deleteItem = () => {
         
         const reqObj = {
             method: "DELETE",
@@ -100,9 +121,13 @@ const PantryPage = () => {
                     type:'DELETE_PANTRY_ITEM',
                     deletedItem: deletedItem
                 })
-                alert("Item Deleted")
+                handleCloseWarning()
                 }
-            ) 
+            )
+            .catch(error => {
+                console.log(error)
+                alert("There was an error")
+            })
     }
 
 
@@ -147,6 +172,7 @@ const PantryPage = () => {
 
     return (
         <Container fluid ='lg' >
+            <ConfirmDelete show ={show} handleClose ={handleCloseWarning} deleteObject={deleteItem} />
             <h2>Your Pantry</h2>
             <Row>
                 <Col md={10}>
@@ -155,7 +181,7 @@ const PantryPage = () => {
 
                     <CardColumns>
                         <DragDropContext onDragEnd={dragEnd}>
-                            {pantryCats.map(category =><PantryCatCard key= {category.id} category ={category} clickAction={deleteItem} />)}
+                            {pantryCats.map(category =><PantryCatCard key= {category.id} category ={category} clickAction={handleShowWarning} />)}
                         </DragDropContext>
 
                     </CardColumns>

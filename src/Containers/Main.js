@@ -24,14 +24,15 @@ const Main = ({history}) => {
     return (
       <> 
       <Container>
-        <Col xs={2} id="sidebar-wrapper">
-          {loggedIn?<UserPantry />:null}
-        </Col>
+
         <Container>
           <Row>
-          {loggedIn? <Col>
-                      <APIPantrySearch />
-                    </Col>:null}
+            <Col id="sidebar-wrapper">
+                  <UserPantry />
+            </Col>
+            <Col>
+              <APIPantrySearch />
+            </Col>
             <Col>
               <RecipesContainer />
             </Col>

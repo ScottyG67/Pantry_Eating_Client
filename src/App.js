@@ -48,7 +48,7 @@ function App() {
         <Nav className="mr-auto">
           <Nav.Link onClick={()=>history.push('/')}>Home</Nav.Link>
           <Nav.Link onClick={()=>history.push("/my_pantry")}>My Pantry</Nav.Link>
-          <Nav.Link onClick={()=>history.push("/about")}>About Us</Nav.Link>
+          <Nav.Link onClick={()=>history.push("/about")}>About</Nav.Link>
         </Nav>
         {loggedIn? <Logout className="mr-sm-2"/>:showLoginForm?<BasicLoginForm />:<Button onClick={()=>{setShowLoginForm(!showLoginForm)}} className="mr-sm-2">Login</Button>}
         {loggedIn?null:showLoginPage?null:<Button className="nav-btn-left" onClick={()=>history.push('/signup')} >SignUp</Button>}
@@ -62,9 +62,7 @@ function App() {
             <Route exact path ='/my_pantry' component={(props)=><PantryPage {...props}/> } />
             <Route exact path =  '/about'>
               <About />
-            </Route>
-
-          
+            </Route>    
       </Router>
     </div>
   );

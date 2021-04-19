@@ -1,9 +1,10 @@
-import {Container, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col , Modal, Button} from 'react-bootstrap'
 import {useDispatch, useSelector } from 'react-redux'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 import RecipesSearchContainer from './RecipeSearchContainer'
 import RecipeCard from '../../components/RecipeCard/RecipeCard'
+import ConfirmDelete from '../../components/ConfirmDelete'
 
 const Recipes = () => {
 
@@ -11,6 +12,12 @@ const Recipes = () => {
     const BASE_URL = useSelector(state => state.BASE_URL)
     const userId = useSelector(state => state.userId)
     const token = localStorage.getItem('token')
+
+    const [show, setShow] = useState(false);
+    const [recipe,setRecipe] = useState({})
+  
+    
+
 
     const dispatch = useDispatch()
 
@@ -20,9 +27,16 @@ const Recipes = () => {
         }
     },[userId])
     
+    const handleShow = (recipe) => {
+        setShow(true);
+        setRecipe(recipe)
+    }
+    const handleClose = () => {
+        setShow(false);
+        setRecipe({})
+    }
 
-    const deleteRecipe = (recipe) => {
-
+    const deleteRecipe = () => {
         const reqObj = {
             method: "DELETE",
             headers: {
@@ -35,12 +49,11 @@ const Recipes = () => {
         fetch(`${BASE_URL}/api/v1/users/${userId}/recipes/${recipe.id}`,reqObj)
             .then( resp => resp.json() )
             .then(deletedRecipe => {
-                console.log(deletedRecipe)
                 dispatch({
                     type:'DELETE_RECIPE',
                     deletedRecipe: deletedRecipe
                 })
-                alert("Add Bootstrap Modal?")
+                handleClose()
                 }
             ) 
     }
@@ -70,13 +83,14 @@ const Recipes = () => {
 
     return(
         <div>
+            <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteRecipe} />
             <Container>
                 <Row>
                     <RecipesSearchContainer />
                     {userId!==""?<Col>
                         <h1>Your Recipes</h1>
                         <div class = "flex-grid">
-                            {savedRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {deleteRecipe} btnTxt={'Delete'}/>)}
+                            {savedRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)}
                         </div>
                     </Col>:null}
                 </Row>

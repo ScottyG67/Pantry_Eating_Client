@@ -50,6 +50,7 @@ const APIPantrySearch = () => {
     }
 
     return (
+        // <div class="sidebar_2">
         <Container>
             <h2>Add New Items</h2>
             <NewPantryItemForm />
@@ -60,6 +61,7 @@ const APIPantrySearch = () => {
                 }
             </div>
         </Container>
+        // </div>
     )
 }
 

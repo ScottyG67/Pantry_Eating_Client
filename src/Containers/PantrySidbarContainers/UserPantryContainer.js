@@ -1,20 +1,25 @@
 import { useDispatch, useSelector } from 'react-redux'
-import {useEffect} from 'react'
-import {ListGroup} from 'react-bootstrap'
+import {useEffect, useState} from 'react'
+import {ListGroup, Row,Col} from 'react-bootstrap'
 import {FolderPlus} from 'react-bootstrap-icons'
 import { DragDropContext} from 'react-beautiful-dnd';
 
 import PantryCategoryContainer from './PantryCategoryContainer'
 import NewCategoryForm from '../../components/NewCategoryForm'
+import APIPantrySearch from '../PantrySidbarContainers/PantrySearchContainer'
+import ConfirmDelete from '../../components/ConfirmDelete'
 
 
-const UserPantry = () => {
+const UserPantry = ({toggleShowSearch}) => {
     const pantryCats = useSelector(state => state.pantryCats)
     const pantryItems = useSelector(state => state.pantryItems)
     const BASE_URL = useSelector(state => state.BASE_URL)
     const userId = useSelector(state => state.userId)
     const newCatForm = useSelector(state => state.showCategoryForm)
     const token = localStorage.getItem('token')
+
+    const [show, setShow] = useState(false);
+    const [item,setItem] = useState({})
     
     const dispatch = useDispatch()
 
@@ -78,7 +83,16 @@ const UserPantry = () => {
               alert("there was an error")})
     }
 
-    const deleteItem = (item) => {
+    const handleShow = (item) => {
+        setShow(true);
+        setItem(item)
+    }
+    const handleClose = () => {
+        setShow(false);
+        setItem({})
+    }
+
+    const deleteItem = () => {
         
         const reqObj = {
             method: "DELETE",
@@ -97,9 +111,13 @@ const UserPantry = () => {
                     type:'DELETE_PANTRY_ITEM',
                     deletedItem: deletedItem
                 })
-                alert("Item Deleted")
+                handleClose()
                 }
-            ) 
+            )
+            .catch(error => {
+                console.log(error)
+                alert("There was an error")
+            })
     }
 
     const toggleShowForm =() =>{
@@ -152,18 +170,28 @@ const UserPantry = () => {
     }
 
     return (
+        <Row>
+            <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteItem} />
+            <Col>
         <div className="sidebar">
             <h2>Your Pantry</h2>
             <div>
             <DragDropContext onDragEnd={dragEnd}>
                 <ListGroup>
-                    {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={deleteItem}/>)}
+                    {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={handleShow}/>)}
                     {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
-                    <ListGroup.Item action variant="dark">Add New Item</ListGroup.Item>
+                    <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
                 </ListGroup>
             </DragDropContext>
             </div>
         </div>
+        </Col>
+        {/* <Col>
+
+            <APIPantrySearch />
+
+        </Col> */}
+        </Row>
     )
 }
 
