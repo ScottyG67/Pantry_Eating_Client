@@ -1,17 +1,22 @@
 
 import {Container, Row, Col} from 'react-bootstrap'
 import {useDispatch, useSelector } from 'react-redux'
+import {useState} from 'react'
 
 
 import RecipesSearchForm from '../../components/RecipesSearchForm'
 import RecipeCard from '../../components/RecipeCard/RecipeCard'
+import SignInPopup from '../SignInPopup'
 
 const RecipesSearchContainer = () => {
 
     const searchRecipes = useSelector(state => state.searchRecipes).map(recipe => recipe) //search
     const BASE_URL = useSelector(state => state.BASE_URL)
+    const loggedIn = useSelector(state => state.loggedIn)
     const userId = useSelector(state => state.userId)
     const token = localStorage.getItem('token')
+
+    const [showPopup, setShowPopup] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -42,6 +47,14 @@ const RecipesSearchContainer = () => {
             )   
     }
 
+    const handleClose = () => {
+        setShowPopup(false)
+    }
+
+    const handleShow = () => {
+        setShowPopup(true)
+    }
+
     return(
 
             <Container>
@@ -49,10 +62,11 @@ const RecipesSearchContainer = () => {
                     <Col>
                         <RecipesSearchForm />
                         <div class = "flex-grid">
-                            {searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {saveRecipe} btnTxt={'Save'}/>)}
+                            {searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleShow} btnTxt={loggedIn?'Save':'Sign in'}/>)}
                         </div>
                     </Col>
                 </Row>
+                <SignInPopup show ={showPopup} handleClose ={handleClose}/>
             </Container>
 
     )

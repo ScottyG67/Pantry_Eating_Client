@@ -24,7 +24,6 @@ const Main = ({history}) => {
     return (
       <> 
       <Container>
-
         <Container>
           <Row>
             <Col id="sidebar-wrapper">
