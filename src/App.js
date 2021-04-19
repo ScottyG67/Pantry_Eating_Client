@@ -44,6 +44,7 @@ function App() {
     <div className="App">
       <Navbar bg = 'light' expand = 'lg' fixed="top">
         <Navbar.Brand>Pantry Eating</Navbar.Brand>
+        
         <Nav className="mr-auto">
           <Nav.Link onClick={()=>history.push('/')}>Home</Nav.Link>
           <Nav.Link onClick={()=>history.push("/my_pantry")}>My Pantry</Nav.Link>
