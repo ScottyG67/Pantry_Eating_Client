@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import {Container} from 'react-bootstrap'
+import {CardColumns, Container} from 'react-bootstrap'
 
 import NewPantryItemForm from '../../components/NewPantryItemForm'
 import PantryItemCard from '../../components/PantryItems/PantryItemCard'
@@ -52,14 +52,16 @@ const APIPantrySearch = () => {
     return (
         // <div class="sidebar_2">
         <Container>
-            <h2>Add New Items</h2>
+            <div className= 'sidebar_header'>
+                <h2>Add To Your Pantry</h2>
+            </div>
             <NewPantryItemForm />
-            <div class = "flex-grid">
+            {/* <div class = "flex-grid"> */}
                 {itemSearchResults.map(item => { 
                     return <PantryItemCard item={item} clickAction={saveItem} btnTxt = {"Save"} />
                     })
                 }
-            </div>
+            {/* </div> */}
         </Container>
         // </div>
     )

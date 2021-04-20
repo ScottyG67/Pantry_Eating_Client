@@ -1,3 +1,4 @@
+import './main.css'
 import {Row, Col, Container} from 'react-bootstrap'
 
 import APIPantrySearch from './PantrySidbarContainers/PantrySearchContainer'
@@ -6,12 +7,14 @@ import RecipesContainer from './RecipeContainers/RecipesContainer'
 import PantryPage from './PantryPageContiners/PantryPage'
 
 import { useDispatch, useSelector } from 'react-redux';
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 
 const Main = ({history}) => {
 
   const loggedIn = useSelector(state => state.loggedIn)
+  const [menuOpen,setMenuOpen] = useState(false)
+
   
   useEffect(()=>{
     if(!loggedIn){
@@ -19,26 +22,31 @@ const Main = ({history}) => {
     }
   })
 
+  const toggleMenu = () =>{
+    setMenuOpen(!menuOpen)
+  }
+
+  const getWrapperClassName = () => {
+    if(menuOpen){
+      return "content_wrapper_open"
+    } else {
+      return "content_wrapper_closed"
+    }
+  }
+
 
   
     return (
-      <> 
-      <Container>
-        <Container>
-          <Row>
-            <Col id="sidebar-wrapper">
-                  <UserPantry />
-            </Col>
-            <Col>
-              <APIPantrySearch />
-            </Col>
-            <Col>
-              <RecipesContainer />
-            </Col>
-          </Row>
-        </Container>
-      </Container>
-      </>
+      <div class = 'wrapper'>
+        <div class='row' >
+            <div class="col align-self-start">
+                <UserPantry toggleMenu={toggleMenu}/>
+            </div>
+            <div className={getWrapperClassName()}>
+                  <RecipesContainer />
+            </div>
+          </div> 
+      </div>
 
     )
   }

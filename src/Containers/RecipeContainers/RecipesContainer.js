@@ -82,19 +82,19 @@ const Recipes = () => {
     }
 
     return(
-        <div>
+        <div id="content">
             <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteRecipe} />
-            <Container>
-                <Row>
-                    <RecipesSearchContainer />
-                    {userId!==""?<Col>
-                        <h1>Your Recipes</h1>
-                        <div class = "flex-grid">
-                            {savedRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)}
-                        </div>
-                    </Col>:null}
-                </Row>
-            </Container>
+            <Row>
+                <RecipesSearchContainer />
+            </Row>
+            <Row>
+                {userId!==""?<Col>
+                    <h1>Your Recipes</h1>
+                    <div class = "flex-grid">
+                        {savedRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)}
+                    </div>
+                </Col>:null}
+            </Row>
         </div>
     )
 }

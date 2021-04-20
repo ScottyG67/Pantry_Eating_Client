@@ -1,7 +1,20 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 .App {
   text-align: center;
 }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #fEFFFF;
+}
 
+p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.7em;
+  color: #999;
+}
 /* .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -46,56 +59,9 @@
   text-align: right;
 }
 
-.flex-grid {
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr)
-}
-.sidebar {
-  position: fixed;
-  top: 55px;
-  bottom: 0;
-  left: 0;
-  overflow-y: scroll;
-  /* min-height: 100vh !important; */
-  /* z-index: 100; */
-  /* padding: 48px 0 0; */
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-}
-.sidebar_2 {
-  position: fixed;
-  top: 55px;
-  bottom: 0;
-  /* left: 0; */
-  overflow-y: scroll;
-  /* min-height: 100vh !important; */
-  /* z-index: 100; */
-  /* padding: 48px 0 0; */
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-}
 
-#sidebar-wrapper{
-  min-height: 50vh !important;
-  width: 100vw;
-  margin-left: -1rem;
-  -webkit-transition: margin .25s ease-out;
-  -moz-transition: margin .25s ease-out;
-  -o-transition: margin .25s ease-out;
-  transition: margin .25s ease-out;
-}
-#sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
-  font-size: 1.2rem;
-}
 
-.pantry_list_item {
-  border: 1px solid lightslategray;
-  border-radius: 2px;
-  padding: 8px;
-  margin-bottom: 8px;
-  background-color: white;
-  
-}
+
 
 body {
   padding-top: 65px;
@@ -104,3 +70,12 @@ body {
   .flex-grid { grid-template-columns: repeat(2, 1fr); }
 } */
 
+.card {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form_box{
+  border: 2px solid grey;
+  border-radius: 10px;
+}

@@ -10,7 +10,7 @@ import APIPantrySearch from '../PantrySidbarContainers/PantrySearchContainer'
 import ConfirmDelete from '../../components/ConfirmDelete'
 
 
-const UserPantry = ({toggleShowSearch}) => {
+const UserPantry = ({toggleMenu}) => {
     const pantryCats = useSelector(state => state.pantryCats)
     const pantryItems = useSelector(state => state.pantryItems)
     const BASE_URL = useSelector(state => state.BASE_URL)
@@ -20,7 +20,8 @@ const UserPantry = ({toggleShowSearch}) => {
 
     const [show, setShow] = useState(false);
     const [item,setItem] = useState({})
-    
+    const [showSearch, setShowSearch] = useState(false)
+
     const dispatch = useDispatch()
 
     useEffect( ()=>{
@@ -83,9 +84,15 @@ const UserPantry = ({toggleShowSearch}) => {
               alert("there was an error")})
     }
 
+    const toggleShowSearch = () => {
+        setShowSearch(!showSearch)
+        toggleMenu()
+    }
+
     const handleShow = (item) => {
         setShow(true);
         setItem(item)
+        
     }
     const handleClose = () => {
         setShow(false);
@@ -170,28 +177,26 @@ const UserPantry = ({toggleShowSearch}) => {
     }
 
     return (
-        <Row>
+        <>
             <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteItem} />
-            <Col>
-        <div className="sidebar">
-            <h2>Your Pantry</h2>
-            <div>
-            <DragDropContext onDragEnd={dragEnd}>
-                <ListGroup>
-                    {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={handleShow}/>)}
-                    {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
-                    <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
-                </ListGroup>
-            </DragDropContext>
+            <div id="sidebar">
+                <div class='sidebar-header'>
+                    <h2>Your Pantry</h2>
+                </div>
+                <div>
+                    <DragDropContext onDragEnd={dragEnd}>
+                        <ListGroup>
+                            {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={handleShow}/>)}
+                            {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
+                            <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
+                        </ListGroup>
+                    </DragDropContext>
+                </div>
             </div>
-        </div>
-        </Col>
-        {/* <Col>
-
-            <APIPantrySearch />
-
-        </Col> */}
-        </Row>
+            {showSearch?(<div id ="sidebar_2">
+                            <APIPantrySearch />
+                        </div>):(null)}
+        </>
     )
 }
 

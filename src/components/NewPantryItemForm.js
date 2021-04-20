@@ -84,35 +84,27 @@ const NewPantryItemForm = () => {
 
     return (
         <div>
-        <h1>Find Item</h1>
+            <Form  id="text_search"  onSubmit = {handleSearch}>
+                <Form.Label as = 'h4'>By Name</Form.Label>
+                <Form.Group controlId="searchQuery">
+                    <Form.Control type="text" placeholder="Search" value ={searchText} onChange = {(e) => setSearchText(e.target.value)}/>
+                </Form.Group>
+                <Button variant="primary" type="submit">Search</Button>
+            </Form>
 
-        <Form id="upc_search" onSubmit = {handleSearch}>
-            <Form.Label>UPC</Form.Label>
-            <Form.Group controlId="searchQuery">
-                <Form.Control type="text" placeholder="Search" value ={upc} onChange = {(e) => setUpc(e.target.value)}/>
-            </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
-        </Form>
-        <h3>Or</h3>
-        <Form>
-        <Form.Label>UPC Barcode Picture</Form.Label>
-            <Form.File 
-                id="custom-file"
-                label="Upload Picture"
-                custom
-                onChange = {upcSearch}
-            />
-        </Form>
-        <h3>Or</h3>
-        <Form id="text_search"  onSubmit = {handleSearch}>
-            <Form.Label>Item Name</Form.Label>
-            <Form.Group controlId="searchQuery">
-                <Form.Control type="text" placeholder="Search" value ={searchText} onChange = {(e) => setSearchText(e.target.value)}/>
-            </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
-        </Form>
-
-    </div>
+            <Form  id="upc_search" onSubmit = {handleSearch}>
+                <Form.Label as = 'h4'>By UPC Code</Form.Label>
+                <Form.Group controlId="searchQuery">
+                    <Form.Control type="text" placeholder="Search" value ={upc} onChange = {(e) => setUpc(e.target.value)}/>
+                </Form.Group>
+                <Button variant="primary" type="submit">Search</Button>
+            </Form>
+           
+            <Form inline >
+                <Form.Label as = 'h4'>UPC Barcode Picture</Form.Label>
+                <Form.File  id="custom-file" onChange = {upcSearch}/>
+            </Form>
+        </div>
     )
 
 }

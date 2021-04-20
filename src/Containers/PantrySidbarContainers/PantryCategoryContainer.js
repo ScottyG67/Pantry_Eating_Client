@@ -12,7 +12,7 @@ const PantryCategoryContainer = ({category,clickAction}) => {
     
     return (
         <Accordion defaultActiveKey="0">
-            <Accordion.Toggle as={ListGroup.Item} eventKey="0" variant ='primary'>{category.name}</Accordion.Toggle>
+            <Accordion.Toggle as={ListGroup.Item} eventKey="0" bsPrefix = 'pantry_cat_item'>{category.name}</Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Droppable droppableId={category.id.toString()}>
                         {(provided) => (
