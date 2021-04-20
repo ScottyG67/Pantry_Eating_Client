@@ -19,7 +19,6 @@ const RecipeCard = ({recipe,clickAction, btnTxt}) => {
                 <Card.Img variant="top" src={recipe.image} alt={recipe.label} onClick ={()=>{setToggleIngredients(!toggleIngredients)}}/>
                 {toggleIngredients?<RecipeCardBasicView recipe = {recipe}/>:<RecipeCardIngredients recipe={recipe} />}
                 <Button onClick = {()=>clickAction(recipe)}> {btnTxt}</Button>
-                {/* {loggedIn?<Button onClick = {()=>clickAction(recipe)}> {btnTxt}</Button>:<Button onClick = {()=> alert("not working yet")}> Sign In </Button>} */}
             </Card>
         </Col>
     )

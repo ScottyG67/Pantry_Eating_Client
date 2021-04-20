@@ -4,21 +4,22 @@ import {useEffect, useState} from 'react'
 
 import RecipesSearchContainer from './RecipeSearchContainer'
 import RecipeCard from '../../components/RecipeCard/RecipeCard'
-import ConfirmDelete from '../../components/ConfirmDelete'
+import {ConfirmDelete, ConfirmSave} from '../../components/PopupMessages'
+// import 'ConfirmDelete' from '../../components/ConfirmDelete'
 
 const Recipes = () => {
 
     const savedRecipes = useSelector(state => state.savedRecipes) //saved
+    const filterBy = useSelector(state => state.filterBy)
     const BASE_URL = useSelector(state => state.BASE_URL)
     const userId = useSelector(state => state.userId)
     const token = localStorage.getItem('token')
+    const [filteredRecipes,setFilteredRecipes] = useState([])
+    // let filteredRecipes = savedRecipes.map(item => item)
 
     const [show, setShow] = useState(false);
     const [recipe,setRecipe] = useState({})
   
-    
-
-
     const dispatch = useDispatch()
 
     useEffect( ()=>{
@@ -26,6 +27,20 @@ const Recipes = () => {
             loadSavedRecipes()
         }
     },[userId])
+
+    useEffect(()=>{
+        if(filterBy.length > 0){
+            console.log(savedRecipes)
+            let holder =[]
+            filterBy.forEach(filterIng => { 
+                holder = savedRecipes.filter(recipe => recipe.ingredients.some(ing => ing.foodId === filterIng.ext_id))
+            })
+            // debugger
+            setFilteredRecipes(holder)
+        }
+
+
+    },[filterBy])
     
     const handleShow = (recipe) => {
         setShow(true);
@@ -81,6 +96,16 @@ const Recipes = () => {
               alert("there was an error")})
     }
 
+    const renderFilterOrAll = () => {
+        if(filterBy.length > 0){
+            // if(filteredRecipes.length>0){
+                return filteredRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)
+            // }
+            // return <h3>Sorry, there are no recipes that match your search.</h3>
+        }
+        return savedRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)
+    }
+
     return(
         <div id="content">
             <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteRecipe} />
@@ -91,7 +116,8 @@ const Recipes = () => {
                 {userId!==""?<Col>
                     <h1>Your Recipes</h1>
                     <div class = "flex-grid">
-                        {savedRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)}
+                        {renderFilterOrAll()}
+                        {/* {filteredRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)} */}
                     </div>
                 </Col>:null}
             </Row>

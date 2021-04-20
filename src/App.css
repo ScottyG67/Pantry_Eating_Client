@@ -84,3 +84,8 @@ body {
   max-width: 30%;
   max-height: auto;
 }
+
+.delete_symbol {
+  margin-top: 5px;
+  float: right;
+}

@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
 import {useEffect, useState} from 'react'
 import {ListGroup, Row,Col} from 'react-bootstrap'
-import {FolderPlus} from 'react-bootstrap-icons'
+import {FileEarmarkEaselFill, FolderPlus} from 'react-bootstrap-icons'
 import { DragDropContext} from 'react-beautiful-dnd';
 
 import PantryCategoryContainer from './PantryCategoryContainer'
 import NewCategoryForm from '../../components/NewCategoryForm'
 import APIPantrySearch from '../PantrySidbarContainers/PantrySearchContainer'
-import ConfirmDelete from '../../components/ConfirmDelete'
+import RecipeFilter from './RecipeFilter'
+import {ConfirmDelete, ConfirmSave} from '../../components/PopupMessages'
 
 
 const UserPantry = ({toggleMenu}) => {
@@ -21,6 +22,7 @@ const UserPantry = ({toggleMenu}) => {
     const [show, setShow] = useState(false);
     const [item,setItem] = useState({})
     const [showSearch, setShowSearch] = useState(false)
+    const [showFilter, setShowFilter] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -45,10 +47,6 @@ const UserPantry = ({toggleMenu}) => {
         fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_categories`,reqObj)
             .then( resp => resp.json() )
             .then(pantry => {
-                // dispatch({
-                //     type:'SET_PANTRY',
-                //     pantry: pantry
-                // })
                 dispatch({
                     type:'SET_PANTRY_CATS',
                     pantryCats: pantry
@@ -86,6 +84,12 @@ const UserPantry = ({toggleMenu}) => {
 
     const toggleShowSearch = () => {
         setShowSearch(!showSearch)
+        setShowFilter(false)
+        toggleMenu()
+    }
+    const toggleShowFilter = () => {
+        setShowFilter(!showFilter)
+        setShowSearch(false)
         toggleMenu()
     }
 
@@ -136,7 +140,7 @@ const UserPantry = ({toggleMenu}) => {
 
 
     const dragEnd = (result) =>{
-        
+            
         const { destination, source, draggableId} = result
         if (!destination){
             return
@@ -197,13 +201,18 @@ const UserPantry = ({toggleMenu}) => {
                             {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={handleShow}/>)}
                             {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
                             <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
+                            <ListGroup.Item action variant="dark" onClick = {toggleShowFilter}>Filter Recipes</ListGroup.Item>
                         </ListGroup>
+                        {showFilter?(<div id ="sidebar_2">
+                                        <RecipeFilter />
+                                    </div>):(null)}
                     </DragDropContext>
                 </div>
             </div>
             {showSearch?(<div id ="sidebar_2">
                             <APIPantrySearch />
                         </div>):(null)}
+           
         </>
     )
 }

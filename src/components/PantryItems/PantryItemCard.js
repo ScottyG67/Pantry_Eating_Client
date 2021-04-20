@@ -6,8 +6,7 @@ const PantryItemCard = ({item,clickAction, btnTxt}) => {
     const {image,name} = item
 
     return (
-        
-            // <Col style ={{padding: '10px'}}>
+
                 <Container style={{padding: '10px'}}>
                     <Card style={{ 'width': '10rem'}}>
                         <Card.Img variant="top" src={image} alt={name} />
@@ -17,9 +16,6 @@ const PantryItemCard = ({item,clickAction, btnTxt}) => {
                         <Button onClick ={()=>{clickAction(item)}}>{btnTxt}</Button>
                     </Card>
                 </Container>
-            // </Col>
-
-
     )
 }
 

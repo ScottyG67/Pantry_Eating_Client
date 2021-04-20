@@ -4,8 +4,7 @@ import {HandThumbsUpFill, HandThumbsDownFill} from 'react-bootstrap-icons'
 
 const RecipeCardIngredient = ({ingredient}) => {
     
-    const pantry = useSelector(state => state.pantry)
-    const pantryItems = pantry.flatMap(cat=> cat.pantry_items)
+    const pantryItems = useSelector(state => state.pantryItems)
     
     const renderIngredient = () => {
         if (pantryItems.length>0) {

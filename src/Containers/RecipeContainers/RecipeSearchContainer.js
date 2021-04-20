@@ -7,6 +7,7 @@ import {useState} from 'react'
 import RecipesSearchForm from '../../components/RecipesSearchForm'
 import RecipeCard from '../../components/RecipeCard/RecipeCard'
 import SignInPopup from '../SignInPopup'
+import {ConfirmSaved} from '../../components/PopupMessages'
 
 const RecipesSearchContainer = () => {
 
@@ -16,13 +17,14 @@ const RecipesSearchContainer = () => {
     const userId = useSelector(state => state.userId)
     const token = localStorage.getItem('token')
 
-    const [showPopup, setShowPopup] = useState(false)
+    const [ShowLoginPopup, setShowLoginPopup] = useState(false)
+    const [ShowSavePopup, setShowSavePopup] = useState(false)
 
     const dispatch = useDispatch()
 
     
     const saveRecipe = (recipe) => {
-
+        console.log(recipe)
 
         const reqObj = {
             method: "POST",
@@ -40,35 +42,45 @@ const RecipesSearchContainer = () => {
                 console.log(savedRecipe)
                 dispatch({
                     type:'SAVE_RECIPE',
-                    savedRecipes: savedRecipe
+                    savedRecipe: savedRecipe
                 })
-                alert("Add Bootstrap Modal")
+                handleSavePopupShow()
                 }
             )   
     }
 
-    const handleClose = () => {
-        setShowPopup(false)
+    const handleSavePopupClose = () => {
+        setShowSavePopup(false)
     }
 
-    const handleShow = () => {
-        setShowPopup(true)
+    const handleSavePopupShow = () => {
+        setShowSavePopup(true)
+    }
+
+    const handleLogInPopupClose = () => {
+        setShowLoginPopup(false)
+    }
+
+    const handleLoginPopupShow = () => {
+        setShowLoginPopup(true)
     }
 
     return(
-
+        <>
             <Container>
+                
                 <Row>
                     <Col>
                         <RecipesSearchForm />
                         <div class = "flex-grid">
-                            {searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleShow} btnTxt={loggedIn?'Save':'Sign in'}/>)}
+                            {searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleLogInPopupClose} btnTxt={loggedIn?'Save':'Sign in'}/>)}
                         </div>
                     </Col>
                 </Row>
-                <SignInPopup show ={showPopup} handleClose ={handleClose}/>
+                <SignInPopup show ={ShowLoginPopup} handleClose ={handleLogInPopupClose}/>
             </Container>
-
+            <ConfirmSaved show ={ShowSavePopup} handleClose ={handleSavePopupClose}/>
+        </>
     )
 }
 

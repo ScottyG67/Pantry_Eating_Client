@@ -9,7 +9,7 @@ import { DragDropContext} from 'react-beautiful-dnd';
 
 import PantryCatCard from '../../components/PantryCategory/PantryCatCard'
 import NewCategoryForm from '../../components/NewCategoryForm'
-import ConfirmDelete from '../../components/ConfirmDelete'
+import {ConfirmDelete, ConfirmSaved} from '../../components/PopupMessages'
 
 
 const PantryPage = ({history}) => {

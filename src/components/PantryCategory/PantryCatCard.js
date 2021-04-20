@@ -6,6 +6,7 @@ import {useState} from 'react'
 import PantryItemListElement from '../PantryItems/PantryItemListElement'
 import SimplePantryItemForm from '../SimplePantryItemForm'
 import PantryItemCard from '../PantryItems/PantryItemCard'
+import {ConfirmSaved} from '../../components/PopupMessages'
 
 const CategoryCard = ({category,clickAction}) => {
 
@@ -17,6 +18,7 @@ const CategoryCard = ({category,clickAction}) => {
 
     const [showForm, setShowForm] = useState(false)
     const [showSearchRes, setShowSearchRes] = useState(false)
+    const [showPopup, setShowPopup] = useState(false);
     
 
     const toggleShowForm = () => { setShowForm(!showForm) }
@@ -41,7 +43,7 @@ const CategoryCard = ({category,clickAction}) => {
             .then( resp => resp.json() )
             .then(savedItem => {
                 console.log(savedItem)
-                
+                setShowPopup(true)
                 dispatch({
                     type:'SAVE_PANTRY_ITEM',
                     pantryItem: savedItem
@@ -57,7 +59,13 @@ const CategoryCard = ({category,clickAction}) => {
             })
     }
 
+    const handlePopupClose = () =>{
+        setShowPopup(false)
+    }
+
     return (
+        <>
+            <ConfirmSaved show ={showPopup} handleClose ={handlePopupClose}/>
             <Card style={{ width: '18rem' }}>
                 <Card.Body>
                     <Card.Title>{category.name}</Card.Title>
@@ -74,6 +82,7 @@ const CategoryCard = ({category,clickAction}) => {
                 </Card.Body>
                 {showSearchRes?<Carousel>{itemSearchResults.map(item => <Carousel.Item><PantryItemCard item = {item} clickAction ={saveItem}  btnTxt = {'save'} /></Carousel.Item>)}</Carousel>:null}
             </Card>
+        </>
     )
 }
 export default CategoryCard

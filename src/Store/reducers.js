@@ -8,7 +8,8 @@ export const initialState = {
 	pantryItems:[],
 	itemSearchResults:[],
 	pantryCats:[],
-	showCategoryForm:false
+	showCategoryForm:false,
+	filterBy:[]
 }
 
 export const reducer = (state, action) => {
@@ -39,10 +40,10 @@ export const reducer = (state, action) => {
 					...state,
 					savedRecipes: action.savedRecipes
 				}
-			case 'SAVE_RECIPES':
+			case 'SAVE_RECIPE':
 				return {
 					...state,
-					savedRecipes: [...state.savedRecipes,action.savedRecipes]
+					savedRecipes: [...state.savedRecipes,action.savedRecipe]
 				}
 			case 'DELETE_RECIPE':
 				return {
@@ -89,6 +90,16 @@ export const reducer = (state, action) => {
 				return {
 					...state,
 					showCategoryForm: !state.showCategoryForm
+				}
+			case 'ADD_TO_FILTER':
+				return {
+					...state,
+					filterBy: [...state.filterBy,action.filterItem]
+				}
+			case 'REMOVE_FROM_FILTER':
+				return{
+					...state,
+					filterBy: [...state.filterBy.filter(item => item.id !== action.filterItem.id)]
 				}
 			case 'RESET':
 				return {
