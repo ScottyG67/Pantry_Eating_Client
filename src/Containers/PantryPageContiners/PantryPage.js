@@ -142,15 +142,26 @@ const PantryPage = ({history}) => {
             return
         }
 
-        // grab moved item and update it
+        // grab moved item and destination category and source category
         const movedItem = pantryItems.find(item => item.id === parseInt(draggableId))
+        let workingPantryItems = pantryItems.filter(item => item.id !== parseInt(draggableId))
+        let destCatList = workingPantryItems.filter(item=> item.pantry_category_id == destination.droppableId)
+        
+        // update Cat ID
         movedItem.pantry_category_id = parseInt(destination.droppableId)
+        // update destination category list
+        destCatList.splice(destination.index,0,movedItem)
+        // remove item and destination category from pantry 
+        let newPantryItems = workingPantryItems.filter(item => item.pantry_category_id !== parseInt(destination.droppableId))
 
-        //update Redux
+        // add destination category with moved item back
+        newPantryItems.push(...destCatList)
+
         dispatch({
-            type:'UPDATE_PANTRY_ITEM',
-            pantryItem: movedItem
+            type:'SET_PANTRY_ITEMS',
+            pantryItems: newPantryItems
         })
+
         // //update server
         const reqObj = {
             method: "PATCH",
@@ -164,10 +175,7 @@ const PantryPage = ({history}) => {
 
         fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items/${movedItem.id}`,reqObj)
             .then( resp => resp.json() )
-            .then(console.log)
-            .catch(error => {
-                console.log(error)
-                alert("there was an error")})
+            .then(console.log) 
     }
 
     return (

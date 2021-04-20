@@ -79,3 +79,8 @@ body {
   border: 2px solid grey;
   border-radius: 10px;
 }
+
+#home-img {
+  max-width: 30%;
+  max-height: auto;
+}

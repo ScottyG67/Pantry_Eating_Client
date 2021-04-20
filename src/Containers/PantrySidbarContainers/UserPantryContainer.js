@@ -145,16 +145,26 @@ const UserPantry = ({toggleMenu}) => {
             return
         }
 
-        // grab moved item and source list
+        // grab moved item and destination category and source category
         const movedItem = pantryItems.find(item => item.id === parseInt(draggableId))
+        let workingPantryItems = pantryItems.filter(item => item.id !== parseInt(draggableId))
+        let destCatList = workingPantryItems.filter(item=> item.pantry_category_id == destination.droppableId)
+        
         // update Cat ID
         movedItem.pantry_category_id = parseInt(destination.droppableId)
+        // update destination category list
+        destCatList.splice(destination.index,0,movedItem)
+        // remove item and destination category from pantry 
+        let newPantryItems = workingPantryItems.filter(item => item.pantry_category_id !== parseInt(destination.droppableId))
+
+        // add destination category with moved item back
+
+        newPantryItems.push(...destCatList)
 
 
-        //update Redux
         dispatch({
-            type:'UPDATE_PANTRY_ITEM',
-            pantryItem: movedItem
+            type:'SET_PANTRY_ITEMS',
+            pantryItems: newPantryItems
         })
 
         // //update server
@@ -172,8 +182,6 @@ const UserPantry = ({toggleMenu}) => {
         fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_items/${movedItem.id}`,reqObj)
             .then( resp => resp.json() )
             .then(console.log) 
-        
-
     }
 
     return (
