@@ -55,10 +55,10 @@ const PantryPage = ({history}) => {
         fetch(`${BASE_URL}/api/v1/users/${userId}/pantry_categories`,reqObj)
             .then( resp => resp.json() )
             .then(pantry => {
-                dispatch({
-                    type:'SET_PANTRY',
-                    pantry: pantry
-                })
+                // dispatch({
+                //     type:'SET_PANTRY',
+                //     pantry: pantry
+                // })
                 dispatch({
                     type:'SET_PANTRY_CATS',
                     pantryCats: pantry

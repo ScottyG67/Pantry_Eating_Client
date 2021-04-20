@@ -6,7 +6,6 @@ export const initialState = {
 	searchRecipes: [],
 	savedRecipes: [],
 	pantryItems:[],
-	pantry:[],
 	itemSearchResults:[],
 	pantryCats:[],
 	showCategoryForm:false
@@ -80,11 +79,6 @@ export const reducer = (state, action) => {
 				return {
 					...state,
 					pantryCats: action.pantryCats
-				}
-			case 'SET_PANTRY':
-				return {
-					...state,
-					pantry: action.pantry
 				}
 			case 'NEW_CATEGORY':
 				return {
