@@ -1,7 +1,7 @@
 
 import {Container, Row, Col} from 'react-bootstrap'
 import {useDispatch, useSelector } from 'react-redux'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 
 import RecipesSearchForm from '../../components/RecipesSearchForm'
@@ -12,16 +12,30 @@ import {ConfirmSaved} from '../../components/PopupMessages'
 const RecipesSearchContainer = () => {
 
     const searchRecipes = useSelector(state => state.searchRecipes).map(recipe => recipe) //search
+    const filterBy = useSelector(state => state.filterBy)
     const BASE_URL = useSelector(state => state.BASE_URL)
     const loggedIn = useSelector(state => state.loggedIn)
     const userId = useSelector(state => state.userId)
     const token = localStorage.getItem('token')
 
+    const [filteredRecipes,setFilteredRecipes] = useState([])
     const [ShowLoginPopup, setShowLoginPopup] = useState(false)
     const [ShowSavePopup, setShowSavePopup] = useState(false)
 
     const dispatch = useDispatch()
 
+    useEffect(()=>{
+        
+        if(filterBy.length > 0){
+
+            let filteredList =searchRecipes.map(item => item)
+            
+            filterBy.forEach(filterIng => {
+                filteredList = filteredList.filter(item => item.recipe.ingredients.some(ing => ing.foodId === filterIng.ext_id))
+            })
+            setFilteredRecipes(filteredList)
+        } 
+    },[filterBy])
     
     const saveRecipe = (recipe) => {
         console.log(recipe)
@@ -65,6 +79,13 @@ const RecipesSearchContainer = () => {
         setShowLoginPopup(true)
     }
 
+    const renderFilterOrAll = () => {
+        if(filterBy.length > 0){
+            return filteredRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleLogInPopupClose} btnTxt={loggedIn?'Save':'Sign in'}/>)
+        }
+        return searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleLogInPopupClose} btnTxt={loggedIn?'Save':'Sign in'}/>)
+    }
+
     return(
         <>
             <Container>
@@ -73,7 +94,7 @@ const RecipesSearchContainer = () => {
                     <Col>
                         <RecipesSearchForm />
                         <div class = "flex-grid">
-                            {searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleLogInPopupClose} btnTxt={loggedIn?'Save':'Sign in'}/>)}
+                            {renderFilterOrAll()}
                         </div>
                     </Col>
                 </Row>

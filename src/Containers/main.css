@@ -88,6 +88,9 @@
     margin-bottom: 8px;
     background-color: rgb(108, 173, 168);
   }
+  .drop_zone{
+    min-height: 100px;
+  }
 
   @media (max-width: 1750px) {
     .flex-grid {

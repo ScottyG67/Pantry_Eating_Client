@@ -25,11 +25,11 @@ const RecipesSearchForm = () => {
         fetch(BASE_URL+'/api/v1/recipes_search',reqObj)
         .then(res => res.json())
         .then(resp => {
-                console.log(resp)
                 dispatch({
                     type: 'SET_RECIPES',
                     searchRecipes: resp.hits
                 })
+                setSearchText("")
             })
         .catch(console.log)
     }

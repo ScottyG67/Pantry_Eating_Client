@@ -140,6 +140,7 @@ const UserPantry = ({toggleMenu}) => {
 
 
     const dragEnd = (result) =>{
+        debugger
             
         const { destination, source, draggableId} = result
         if (!destination){
@@ -203,15 +204,20 @@ const UserPantry = ({toggleMenu}) => {
                             <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
                             <ListGroup.Item action variant="dark" onClick = {toggleShowFilter}>Filter Recipes by Ingredients</ListGroup.Item>
                         </ListGroup>
-                        {showFilter?(<div id ="sidebar_2">
-                                        <RecipeFilter />
-                                    </div>):(null)}
+
                     </DragDropContext>
                 </div>
             </div>
             {showSearch?(<div id ="sidebar_2">
                             <APIPantrySearch />
                         </div>):(null)}
+            <div>
+
+                    {showFilter?(<div id ="sidebar_2">
+                                        <RecipeFilter />
+                                    </div>):(null)}
+
+            </div>
            
         </>
     )

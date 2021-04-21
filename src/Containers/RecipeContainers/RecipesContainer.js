@@ -15,7 +15,6 @@ const Recipes = () => {
     const userId = useSelector(state => state.userId)
     const token = localStorage.getItem('token')
     const [filteredRecipes,setFilteredRecipes] = useState([])
-    // let filteredRecipes = savedRecipes.map(item => item)
 
     const [show, setShow] = useState(false);
     const [recipe,setRecipe] = useState({})
@@ -31,15 +30,13 @@ const Recipes = () => {
     useEffect(()=>{
         if(filterBy.length > 0){
             console.log(savedRecipes)
-            let holder =[]
-            filterBy.forEach(filterIng => { 
-                holder = savedRecipes.filter(recipe => recipe.ingredients.some(ing => ing.foodId === filterIng.ext_id))
+            let filteredList =savedRecipes.map(item => item)
+            
+            filterBy.forEach(filterIng => {
+                filteredList = filteredList.filter(recipe => recipe.ingredients.some(ing => ing.foodId === filterIng.ext_id))
             })
-            // debugger
-            setFilteredRecipes(holder)
+            setFilteredRecipes(filteredList)
         }
-
-
     },[filterBy])
     
     const handleShow = (recipe) => {
@@ -98,10 +95,7 @@ const Recipes = () => {
 
     const renderFilterOrAll = () => {
         if(filterBy.length > 0){
-            // if(filteredRecipes.length>0){
-                return filteredRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)
-            // }
-            // return <h3>Sorry, there are no recipes that match your search.</h3>
+            return filteredRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)
         }
         return savedRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {handleShow} btnTxt={'Delete'}/>)
     }

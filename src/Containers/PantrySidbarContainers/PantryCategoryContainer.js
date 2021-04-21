@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {Droppable} from 'react-beautiful-dnd';
-import {ListGroup, Accordion} from 'react-bootstrap'
+import {ListGroup, Accordion, Col} from 'react-bootstrap'
 
 
 import PantryItemListElement from '../../components/PantryItems/PantryItemListElement'
@@ -9,7 +9,7 @@ import PantryItemListElement from '../../components/PantryItems/PantryItemListEl
 
 const PantryCategoryContainer = ({category,clickAction}) => {
     const pantryItems = useSelector(state => state.pantryItems).filter(item => item.pantry_category_id === category.id)
-    
+
     return (
         <Accordion defaultActiveKey="0">
             <Accordion.Toggle as={ListGroup.Item} eventKey="0" bsPrefix = 'pantry_cat_item'>{category.name}</Accordion.Toggle>
@@ -24,7 +24,6 @@ const PantryCategoryContainer = ({category,clickAction}) => {
                     </Droppable>
                 </Accordion.Collapse>
         </Accordion>
-
     )
 }
 
