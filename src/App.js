@@ -2,7 +2,7 @@
 import './App.css';
 import {Navbar, Nav, Button, ListGroup} from 'react-bootstrap'
 import {useState, useEffect} from 'react'
-import {useSelector } from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
 
 // import { 
 //   BrowserRouter as Router, 
@@ -30,12 +30,48 @@ function App() {
   const loggedIn = useSelector(state => state.loggedIn)
   const [showLoginForm,setShowLoginForm] = useState(false)
   const [showLoginPage,setShowLoginPage] = useState(false)
+  const token = localStorage.getItem('token')
+  const BASE_URL = useSelector(state => state.BASE_URL)
+
+  const dispatch = useDispatch()
+
+  useEffect ( ()=> {
+    if (token) {
+      const reqObj = {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        } 
+      }
+    fetch(`${BASE_URL}/api/v1/profile`,reqObj)
+        .then( resp => resp.json() )
+        .then(data => {
+          console.log(data)
+          dispatch({
+            type: 'SET_USERNAME',
+            username: data.user.username
+          })
+          dispatch({
+            type: 'SET_USER_ID',
+            userId: data.user.id
+          })
+          dispatch({
+            type: 'SET_LOGGED_IN',
+            loggedIn: true
+          })
+          history.push('/home')
+        })
+        .catch()
+  }
+  },[])
 
   useEffect( ()=>{
     if (!loggedIn){
       setShowLoginForm(false)
       setShowLoginPage(false)
-    }
+    } 
   },[loggedIn])
   
 

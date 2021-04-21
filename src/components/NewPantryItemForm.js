@@ -100,10 +100,10 @@ const NewPantryItemForm = () => {
                 <Button variant="primary" type="submit">Search</Button>
             </Form>
            
-            <Form inline >
+            {/* <Form inline >
                 <Form.Label as = 'h4'>UPC Barcode Picture</Form.Label>
                 <Form.File  id="custom-file" onChange = {upcSearch}/>
-            </Form>
+            </Form> */}
         </div>
     )
 

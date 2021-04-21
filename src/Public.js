@@ -9,13 +9,45 @@ import RecipesContainer from './containers/RecipeContainers/RecipesContainer'
 const Public = ({history}) => {
   const loggedIn = useSelector(state => state.loggedIn)
   const image = '../public/conscious-design-AD-8q-1EytA-unsplash.jpg'
+  const token = localStorage.getItem('token')
+  const BASE_URL = useSelector(state => state.BASE_URL)
+
+  const dispatch = useDispatch()
   
   useEffect(()=>{
 
-    
     if(loggedIn){
       history.push('/home')
     }
+    // } else if (token) {
+    //     const reqObj = {
+    //       method: "GET",
+    //       headers: {
+    //           Authorization: `Bearer ${token}`,
+    //           "Content-Type": "application/json",
+    //           "Accept": "application/json"
+    //       } 
+    //     }
+    //   fetch(`${BASE_URL}/api/v1/profile`,reqObj)
+    //       .then( resp => resp.json() )
+    //       .then(data => {
+    //         console.log(data)
+    //         dispatch({
+    //           type: 'SET_USERNAME',
+    //           username: data.user.username
+    //         })
+    //         dispatch({
+    //           type: 'SET_USER_ID',
+    //           userId: data.user.id
+    //         })
+    //         dispatch({
+    //           type: 'SET_LOGGED_IN',
+    //           loggedIn: true
+    //         })
+    //         history.push('/home')
+    //       })
+    //       .catch()
+    // } 
   })
 
     return (

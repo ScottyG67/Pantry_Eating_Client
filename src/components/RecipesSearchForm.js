@@ -48,7 +48,7 @@ const RecipesSearchForm = () => {
                 <Form.Group controlId="searchQuery">
                     <Form.Control type="text" placeholder="Search" value ={searchText} onChange = {(e) => setSearchText(e.target.value)}/>
                 </Form.Group>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit">Search</Button>
                 <Button variant ="secondary" onClick={done}>Done</Button>
             </Form>
         </div>
