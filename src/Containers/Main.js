@@ -24,28 +24,23 @@ const Main = ({history}) => {
     setMenuOpen(!menuOpen)
   }
 
-  const getWrapperClassName = () => {
+  const getSpacerClassName = () => {
     if(menuOpen){
-      return "content_wrapper_open"
+      return "main_page_spacing_open"
     } else {
-      return "content_wrapper_closed"
+      return "main_page_spacing_closed"
     }
   }
 
-
-  
     return (
-      <div class = 'wrapper'>
-        <div class='row' >
-            <div class="col align-self-start">
-                <UserPantrySidebars toggleMenu={toggleMenu}/>
-            </div>
-            <div className={getWrapperClassName()}>
-                  <RecipesContainer />
-            </div>
-          </div> 
-      </div>
-
+      <>
+        <UserPantrySidebars toggleMenu={toggleMenu}/>
+        <div className={getSpacerClassName()}>
+          <Container fluid>
+            <RecipesContainer />
+          </Container>
+        </div>
+      </>
     )
   }
   

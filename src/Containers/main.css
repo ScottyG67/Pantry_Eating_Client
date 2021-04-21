@@ -1,25 +1,39 @@
+:root{
+  --sidebar_one_spacing: 250px;
+  --sidebar_two_spacing: 250px;
+  --sidebar_two_width: 350px;
+  --both_sidebar_spacing:450px;
+
+  --sidebar_one_small: 100px;
+  --sidebar_two_small: 100px;
+  --sidebar_two_small_width: 150px;
+  --both_sidebar_small:200px;
+
+}
+
 .flex-grid {
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr)
+    grid-template-columns: repeat(5, 1fr)
   }
 
+.main_page_spacing_closed{
+  margin-left: var(--sidebar_one_spacing) !important;
+  /* width:var(--sidebar_one_spacing); */
+}
+
+.main_page_spacing_open{
+  margin-left: var(--both_sidebar_spacing);
+  /* width: var(--both_sidebar_spacing); */
+
+}
 
 #content {
-    /* position: relative; */
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    /* margin-left: 250px; */
     padding: 20px;
-    /* min-height: 100vh; */
     transition: all 0.3s;
-}
-.content_wrapper_closed {
-    margin-left: 350px;
-}
-.content_wrapper_open {
-    margin-left: 500px;
 }
 
 
@@ -35,8 +49,8 @@
     top: 50px;
     bottom: 0;
     left: 0;
-    min-width: 250px;
-    max-width: 250px;
+    min-width: var(--sidebar_one_spacing);
+    max-width: var(--sidebar_one_spacing);
     overflow-y: scroll;
     z-index: 100;
     background: #DEF2F1;
@@ -47,8 +61,8 @@
     position: fixed;
     top: 55px;
     bottom: 0;
-    left: 250px;
-    max-width: 350px;
+    left: var(--sidebar_two_spacing);
+    max-width: var(--sidebar_two_width);
     overflow-y: scroll;
     background-color: lightgrey;
   }
@@ -61,10 +75,6 @@
     padding: 20px;
     font-size: 1.2rem;
   }
-
-  /* .sidebar-header h2{
-    color:#17252A;
-  } */
   
   .pantry_cat_item{
     color: #fff;
@@ -92,11 +102,44 @@
     min-height: 100px;
   }
 
-  @media (max-width: 1750px) {
+  @media (max-width: 2240px) {
+    .flex-grid {
+        grid-template-columns: repeat(4, 1fr)
+      }
+}
+
+@media (max-width: 1800px) {
+  .flex-grid {
+      grid-template-columns: repeat(3, 1fr)
+    }
+}
+
+  @media (max-width: 1550px) {
     .flex-grid {
         grid-template-columns: repeat(2, 1fr)
       }
-    #content{
-        left: 150;
-    }
+
+}
+
+@media (max-width: 991px) {
+  .flex-grid {
+      grid-template-columns: repeat(1, 1fr)
+  }
+  .main_page_spacing_closed{
+    margin-left: var(--sidebar_one_small) !important;
+  }
+  .main_page_spacing_open{
+    margin-left: var(--both_sidebar_small);    
+  }
+
+  #sidebar {
+    min-width: var(--sidebar_one_small);
+    max-width: var(--sidebar_one_small);
+  }
+  
+  #sidebar_2 {
+    left: var(--sidebar_two_small);
+    max-width: var(--sidebar_two_small_width);
+  }
+
 }

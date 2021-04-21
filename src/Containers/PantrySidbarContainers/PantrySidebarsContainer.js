@@ -197,15 +197,6 @@ const UserPantrySidebars = ({toggleMenu}) => {
                     <DragDropContext onDragEnd={dragEnd}>
                         <PantrySidebar pantryCats ={pantryCats}/>
                     </DragDropContext>
-                    {/* <DragDropContext onDragEnd={dragEnd}>
-                        <ListGroup>
-                            {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={handleShow}/>)}
-                            {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
-                            <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
-                            <ListGroup.Item action variant="dark" onClick = {toggleShowFilter}>Filter Recipes by Ingredients</ListGroup.Item>
-                        </ListGroup>
-
-                    </DragDropContext> */}
                     <ListGroup>
                         {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
                         <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
@@ -213,10 +204,9 @@ const UserPantrySidebars = ({toggleMenu}) => {
                     </ListGroup>
                 </div>
             </div>
-                {showSearch?(<div id ="sidebar_2">
-                            <APIPantrySearch />
-                        </div>):(null)}
-
+            {showSearch?(<div id ="sidebar_2">
+                        <APIPantrySearch />
+                    </div>):(null)}
             {showFilter?(<div id ="sidebar_2">
                                 <RecipeFilter />
                             </div>):(null)}
