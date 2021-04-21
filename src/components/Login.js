@@ -77,7 +77,7 @@ const Login = () => {
                     <Form.Control type="password" placeholder="Password" value={password} onChange = {(e) => setPassword(e.target.value)}/>
                     <Form.Text className="text-muted">We hash the crap out of it, so rest easy</Form.Text>
                 </Form.Group>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit">Log In</Button>
             </Form>
         </div>
     )

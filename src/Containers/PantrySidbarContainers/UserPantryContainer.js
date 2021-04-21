@@ -201,7 +201,7 @@ const UserPantry = ({toggleMenu}) => {
                             {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={handleShow}/>)}
                             {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
                             <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
-                            <ListGroup.Item action variant="dark" onClick = {toggleShowFilter}>Filter Recipes</ListGroup.Item>
+                            <ListGroup.Item action variant="dark" onClick = {toggleShowFilter}>Filter Recipes by Ingredients</ListGroup.Item>
                         </ListGroup>
                         {showFilter?(<div id ="sidebar_2">
                                         <RecipeFilter />

@@ -19,35 +19,6 @@ const Public = ({history}) => {
     if(loggedIn){
       history.push('/home')
     }
-    // } else if (token) {
-    //     const reqObj = {
-    //       method: "GET",
-    //       headers: {
-    //           Authorization: `Bearer ${token}`,
-    //           "Content-Type": "application/json",
-    //           "Accept": "application/json"
-    //       } 
-    //     }
-    //   fetch(`${BASE_URL}/api/v1/profile`,reqObj)
-    //       .then( resp => resp.json() )
-    //       .then(data => {
-    //         console.log(data)
-    //         dispatch({
-    //           type: 'SET_USERNAME',
-    //           username: data.user.username
-    //         })
-    //         dispatch({
-    //           type: 'SET_USER_ID',
-    //           userId: data.user.id
-    //         })
-    //         dispatch({
-    //           type: 'SET_LOGGED_IN',
-    //           loggedIn: true
-    //         })
-    //         history.push('/home')
-    //       })
-    //       .catch()
-    // } 
   })
 
     return (
@@ -55,8 +26,13 @@ const Public = ({history}) => {
         <div>
           <h1>Welcome to Pantry Eating</h1>
           <img id='home-img' src = 'https://images.unsplash.com/photo-1605522362572-0d1418de7d27?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1504&q=80' />
-          <p>Eating at home for every meal can be tough and I sympathize with that. The biggest problem is figuring out what to make, and using what you have. Every time you look in your pantry there is a wall of food, yet there is <strong>"nothing to eat"</strong></p>
+          <Row bsPrefix='home_page_row'>
+            <Col bsPrefix ='home_page_text'>
+            <p>Eating at home for every meal can be tough. The biggest problem is figuring out what to make, keeping it interesting, and using what you have. Every time you look in your pantry there is a wall of food, yet there is <strong>"nothing to eat"</strong></p>
           <p>I wanted to help so I built Pantry Eating with the goal of connecting what is in the pantry with what can be made.</p>
+            </Col>
+          </Row>
+          
         </div>
         <Container>
           <Row>

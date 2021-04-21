@@ -50,7 +50,7 @@ const SimplePantryItemForm = ({toggleShowForm,toggleShowRes}) => {
             <Form.Group controlId="searchQuery">
                 <Form.Control type="text" autofocus="true" placeholder="Search" value ={searchText} onChange = {(e) => setSearchText(e.target.value)}/>
             </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
+            <Button variant="primary" type="submit">Search</Button>
         </Form>
         <DashSquare onClick={toggleShowForm} />
         </>

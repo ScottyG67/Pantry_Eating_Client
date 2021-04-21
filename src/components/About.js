@@ -11,9 +11,10 @@ const About = () => {
                 <Card bsPrefix='about-card'>
                     <Card.Body>
                     <Card.Title>Scott Gloyna</Card.Title>
-                    <Card.Text>I am a full stack software engineer graduating from <a href='https://flatironschool.com/'>FlatIron School</a> with 12 years of experience as a mechanical engineer working in a variety of industries</Card.Text>
+                    <Card.Text>I am a full stack software engineer graduating from <a href='https://flatironschool.com/'>FlatIron School</a>. I chose to become a software engineer because I love making things, solving problems and the most enjoyable work I have done during my career was supporting the development and rollout of a new software solution.</Card.Text>
+                    <Card.Text>I have 12 years of experience as a mechanical engineer working in a variety of industries and as a consultant. I am a certified project manager and have worked as a manager in high growth environments.</Card.Text>
                     </Card.Body>
-                    <Card.Img src= "https://media-exp1.licdn.com/dms/image/C4D03AQHB91ltffZGRw/profile-displayphoto-shrink_800_800/0/1516529962541?e=1624492800&v=beta&t=g-MP1pjIDnInO3CGjstC61qwOT6D_S2GC45FT9tB1oU"/>
+                    <Card.Img bsPrefix='about-img' src= "https://media-exp1.licdn.com/dms/image/C4D03AQHB91ltffZGRw/profile-displayphoto-shrink_800_800/0/1516529962541?e=1624492800&v=beta&t=g-MP1pjIDnInO3CGjstC61qwOT6D_S2GC45FT9tB1oU"/>
                 </Card>
             </Col>
             <Col>

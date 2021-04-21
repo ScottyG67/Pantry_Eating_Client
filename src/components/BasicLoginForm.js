@@ -98,7 +98,7 @@ const BasicLoginForm = () => {
                 <Form.Group controlId="formBasicPassword">
                     <Form.Control className="mr-sm-2" type="password" placeholder="Password" value={password} onChange = {(e) => setPassword(e.target.value)}/>
                 </Form.Group>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit">Log In</Button>
             </Form>
         </div>
     )

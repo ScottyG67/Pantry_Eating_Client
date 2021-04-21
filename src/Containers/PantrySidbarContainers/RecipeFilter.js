@@ -9,13 +9,14 @@ import PantryItemListElement from '../../components/PantryItems/PantryItemListEl
 const RecipeFilter = () => {
     const pantryItems = useSelector(state => state.pantryItems)
     const filterList = useSelector(state => state.filterBy)
-    // const [filterList, setFilterList] = useState([])
     const [placeHolder, setPlaceHolder] = useState()
+    const itemOptions = pantryItems.filter(item => !filterList.includes(item))
 
     const dispatch = useDispatch()
 
     const filter = (e) => {
         e.preventDefault()
+        e.target.reset()
         const item = pantryItems.find(item => item.id === placeHolder)
         dispatch ({
             type:'ADD_TO_FILTER',
@@ -36,16 +37,17 @@ const RecipeFilter = () => {
 
     return(
         <Col>
-            <h1>Filter Recipes by Ingredients</h1>
-            <Form onSubmit = {filter}>
+            <Row>
+            <h2>Show Recipes that include these Ingredients</h2>
+            <Form onSubmit = {filter} style={{padding: '10%'}}>
                 <Form.Group controlId="exampleForm.ControlSelect2">
-                    <Form.Label>Example multiple select</Form.Label>
+                    {/* <Form.Label>Add Ingredients</Form.Label> */}
                     <Form.Control as="select" onChange = {addToList}>
                         <option>Select An Item</option>
-                        {pantryItems.map(item=> <option id = {item.id}>{item.name}</option>)}
+                        {itemOptions.map(item=> <option id = {item.id}>{item.name}</option>)}
                     </Form.Control>
                 </Form.Group>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit">Add</Button>
             </Form>
             <ListGroup>
                 {filterList.map((item,index)=>  <div>
@@ -55,16 +57,19 @@ const RecipeFilter = () => {
                     </div>
                 </div>)}
             </ListGroup>
+            </Row>
 
-
-            {/* <Droppable droppableId={"filter"}>
+            {/* <Row>
+                <h2>Drop Zone</h2>
+            <Droppable droppableId={"filter"}>
                 {(provided) => (
                     <ListGroup {...provided.droppableProps} ref={provided.innerRef}>
                         {filterList.map((item,index)=> <PantryItemListElement key = {item.id} item = {item} index={index} />)}
                         {provided.placeholder}
                     </ListGroup>
                 )}
-            </Droppable> */}
+            </Droppable>
+            </Row> */}
         </Col>
     )
 
