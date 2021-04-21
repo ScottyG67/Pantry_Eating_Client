@@ -44,28 +44,30 @@ const RecipeFilter = () => {
 
 
     return(
-        <DragDropContext onDragEnd={dragEnd}>
-                <Row>
-                <h2>Your Pantry</h2>
-                <Droppable droppableId={"pantry"}>
-                    {(provided) => (
-                        <ListGroup {...provided.droppableProps} ref={provided.innerRef} bsPrefix='drop_zone'>
-                            {itemOptions.map((item,index)=> <PantryItemListElement key = {item.id} item = {item} clickAction={console.log} index={index} />)}
-                            {provided.placeholder}
-                        </ListGroup>
-                    )}
-                </Droppable>
-                </Row>
-                <h2>Show Recipes that include these Ingredients</h2>
-                <Droppable droppableId={"filter"}>
-                    {(provided) => (
-                        <ListGroup {...provided.droppableProps} ref={provided.innerRef} bsPrefix='drop_zone'>
-                            {filterList.map((item,index)=> <PantryItemListElement key = {item.id} item = {item} clickAction={console.log} index={index} />)}
-                            {provided.placeholder}
-                        </ListGroup>
-                    )}
-                </Droppable>
-        </DragDropContext>
+        <Container>
+            <DragDropContext onDragEnd={dragEnd}>
+                    <Row>
+                    <h2>Your Pantry</h2>
+                    <Droppable droppableId={"pantry"}>
+                        {(provided) => (
+                            <ListGroup {...provided.droppableProps} ref={provided.innerRef} bsPrefix='drop_zone'>
+                                {itemOptions.map((item,index)=> <PantryItemListElement key = {item.id} item = {item} clickAction={console.log} index={index} />)}
+                                {provided.placeholder}
+                            </ListGroup>
+                        )}
+                    </Droppable>
+                    </Row>
+                    <h2>Show Recipes that include these Ingredients</h2>
+                    <Droppable droppableId={"filter"}>
+                        {(provided) => (
+                            <ListGroup {...provided.droppableProps} ref={provided.innerRef} bsPrefix='drop_zone'>
+                                {filterList.map((item,index)=> <PantryItemListElement key = {item.id} item = {item} clickAction={console.log} index={index} />)}
+                                {provided.placeholder}
+                            </ListGroup>
+                        )}
+                    </Droppable>
+            </DragDropContext>
+        </Container>
     )
 
 }

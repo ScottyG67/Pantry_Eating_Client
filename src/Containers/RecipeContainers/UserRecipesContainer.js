@@ -73,7 +73,7 @@ const UserRecipesContainer = () => {
                 <Row>
                     {userId!==""?<Col>
                         <h1>Your Recipes</h1>
-                        <div class = "flex-grid">
+                        <div class = "flex-grid" >
                             {savedRecipes.map(recipe => <RecipeCard key = {recipe.id} recipe={recipe}  clickAction = {deleteRecipe} btnTxt={'Delete'}/>)}
                         </div>
                     </Col>:null}

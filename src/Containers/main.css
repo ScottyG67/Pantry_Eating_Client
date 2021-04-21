@@ -2,20 +2,25 @@
   --sidebar_one_spacing: 250px;
   --sidebar_two_spacing: 250px;
   --sidebar_two_width: 350px;
-  --both_sidebar_spacing:450px;
+  --both_sidebar_spacing:550px;
 
   --sidebar_one_small: 100px;
   --sidebar_two_small: 100px;
   --sidebar_two_small_width: 150px;
   --both_sidebar_small:200px;
+  --five_card: 5;
+  --four_card: 4;
+  --three_card: 3;
+  --two_card: 2;
 
 }
 
 .flex-grid {
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(5, 1fr)
+    grid-template-columns: repeat(4, 1fr);
   }
+
 
 .main_page_spacing_closed{
   margin-left: var(--sidebar_one_spacing) !important;
@@ -102,19 +107,19 @@
     min-height: 100px;
   }
 
-  @media (max-width: 2240px) {
-    .flex-grid {
-        grid-template-columns: repeat(4, 1fr)
-      }
+@media (max-width: 2240px) {
+  .flex-grid {
+      grid-template-columns: repeat(4, 1fr)
+    }
 }
 
-@media (max-width: 1800px) {
+@media (max-width: 1920px) {
   .flex-grid {
       grid-template-columns: repeat(3, 1fr)
     }
 }
 
-  @media (max-width: 1550px) {
+  @media (max-width: 1600px) {
     .flex-grid {
         grid-template-columns: repeat(2, 1fr)
       }
@@ -123,7 +128,7 @@
 
 @media (max-width: 991px) {
   .flex-grid {
-      grid-template-columns: repeat(1, 1fr)
+      grid-template-columns: repeat(18rem, 1fr)
   }
   .main_page_spacing_closed{
     margin-left: var(--sidebar_one_small) !important;
