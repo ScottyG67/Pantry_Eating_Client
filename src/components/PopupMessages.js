@@ -13,7 +13,7 @@ export const SignInPopup = ({show, handleClose}) => {
     )
   }
 
-const ConfirmDelete = ({show, handleClose, deleteObject}) => {
+export const ConfirmDelete = ({show, handleClose, deleteObject}) => {
   
     return (
         <Modal show={show} onHide={handleClose}>
@@ -29,7 +29,7 @@ const ConfirmDelete = ({show, handleClose, deleteObject}) => {
     )
   }
 
- const ConfirmSaved = ({show, handleClose}) => {
+ export const ConfirmSaved = ({show, handleClose}) => {
   
     return (
         <Modal show={show} onHide={handleClose}>
@@ -41,7 +41,14 @@ const ConfirmDelete = ({show, handleClose, deleteObject}) => {
     )
   }
 
-  export {
-      ConfirmDelete,
-      ConfirmSaved
+  export const SearchFail = ({show, handleClose}) => {
+  
+    return (
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Nothing Found</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Sorry, nothing matching your search was found.</Modal.Body>
+        </Modal>
+    )
   }

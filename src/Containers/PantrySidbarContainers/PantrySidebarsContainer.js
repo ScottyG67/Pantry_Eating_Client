@@ -6,12 +6,13 @@ import { DragDropContext} from 'react-beautiful-dnd';
 
 import PantryCategoryContainer from './PantryCategoryContainer'
 import NewCategoryForm from '../../components/NewCategoryForm'
-import APIPantrySearch from '../PantrySidbarContainers/PantrySearchContainer'
+import APIPantrySearch from './PantrySearchContainer'
 import RecipeFilter from './RecipeFilter'
 import {ConfirmDelete, ConfirmSave} from '../../components/PopupMessages'
+import PantrySidebar from './PantrySidebar';
 
 
-const UserPantry = ({toggleMenu}) => {
+const UserPantrySidebars = ({toggleMenu}) => {
     const pantryCats = useSelector(state => state.pantryCats)
     const pantryItems = useSelector(state => state.pantryItems)
     const BASE_URL = useSelector(state => state.BASE_URL)
@@ -140,7 +141,6 @@ const UserPantry = ({toggleMenu}) => {
 
 
     const dragEnd = (result) =>{
-        debugger
             
         const { destination, source, draggableId} = result
         if (!destination){
@@ -193,11 +193,11 @@ const UserPantry = ({toggleMenu}) => {
         <>
             <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteItem} />
             <div id="sidebar">
-                <div class='sidebar-header'>
-                    <h2>Your Pantry</h2>
-                </div>
                 <div>
                     <DragDropContext onDragEnd={dragEnd}>
+                        <PantrySidebar pantryCats ={pantryCats}/>
+                    </DragDropContext>
+                    {/* <DragDropContext onDragEnd={dragEnd}>
                         <ListGroup>
                             {pantryCats.map(category => <PantryCategoryContainer key= {category.id} category ={category} clickAction={handleShow}/>)}
                             {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
@@ -205,22 +205,26 @@ const UserPantry = ({toggleMenu}) => {
                             <ListGroup.Item action variant="dark" onClick = {toggleShowFilter}>Filter Recipes by Ingredients</ListGroup.Item>
                         </ListGroup>
 
-                    </DragDropContext>
+                    </DragDropContext> */}
+                    <ListGroup>
+                        {newCatForm?<NewCategoryForm/>:<ListGroup.Item action variant="dark" onClick = {toggleShowForm}> <FolderPlus/>   Add Another Category</ListGroup.Item>}
+                        <ListGroup.Item action variant="dark" onClick = {toggleShowSearch}>Add New Item</ListGroup.Item>
+                        <ListGroup.Item action variant="dark" onClick = {toggleShowFilter}>Filter Recipes by Ingredients</ListGroup.Item>
+                    </ListGroup>
                 </div>
             </div>
-            {showSearch?(<div id ="sidebar_2">
+                {showSearch?(<div id ="sidebar_2">
                             <APIPantrySearch />
                         </div>):(null)}
-            <div>
 
-                    {showFilter?(<div id ="sidebar_2">
-                                        <RecipeFilter />
-                                    </div>):(null)}
+            {showFilter?(<div id ="sidebar_2">
+                                <RecipeFilter />
+                            </div>):(null)}
 
-            </div>
            
         </>
     )
 }
 
-export default UserPantry
+export default UserPantrySidebars
+

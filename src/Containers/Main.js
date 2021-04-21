@@ -1,10 +1,8 @@
 import './main.css'
 import {Row, Col, Container} from 'react-bootstrap'
 
-import APIPantrySearch from './PantrySidbarContainers/PantrySearchContainer'
-import UserPantry from './PantrySidbarContainers/UserPantryContainer'
+import UserPantrySidebars from './PantrySidbarContainers/PantrySidebarsContainer'
 import RecipesContainer from './RecipeContainers/RecipesContainer'
-import PantryPage from './PantryPageContiners/PantryPage'
 
 import { useDispatch, useSelector } from 'react-redux';
 import {useEffect, useState} from 'react'
@@ -40,7 +38,7 @@ const Main = ({history}) => {
       <div class = 'wrapper'>
         <div class='row' >
             <div class="col align-self-start">
-                <UserPantry toggleMenu={toggleMenu}/>
+                <UserPantrySidebars toggleMenu={toggleMenu}/>
             </div>
             <div className={getWrapperClassName()}>
                   <RecipesContainer />

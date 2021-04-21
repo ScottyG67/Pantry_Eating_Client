@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
+import {SearchFail} from './PopupMessages'
 
 const NewPantryItemForm = () => {
     const [upc, setUpc] = useState("")
@@ -9,6 +10,7 @@ const NewPantryItemForm = () => {
     const BASE_URL = useSelector(state => state.BASE_URL) 
     const userId = useSelector(state => state.userId)
     const token = localStorage.getItem('token')
+    const [showPopup, setShowPopup] = useState(false);
 
     const handleSearch = (e) => {
         e.preventDefault()
@@ -39,48 +41,31 @@ const NewPantryItemForm = () => {
         fetch(`${BASE_URL}/api/v1/users/${userId}/item_search`,reqObj)
             .then( resp => resp.json() )
             .then(items => {
-                dispatch({
-                    type:'SET_ITEM_SEARCH_RESULTS',
-                    itemSearchResults: items
-                })
+                if(!items.error){
+                    dispatch({
+                        type:'SET_ITEM_SEARCH_RESULTS',
+                        itemSearchResults: items
+                    })
+                } else {
+                    setShowPopup(true)
+                }
                 setSearchText("")
                 setUpc("")
-
             })
             .catch(error => {
               console.log(error)
-              alert("there was an error")})
+              dispatch({
+                type:'SET_ITEM_SEARCH_RESULTS',
+                itemSearchResults: []
+                })
+              alert("Sorry, nothing was found")})
     }
 
-    const upcSearch = (e) => {
-        alert("upc search currently non functional")
-        const imageFile = e.target.files[0]
-        debugger
-        // var barcodeDetector = new BarcodeDetector({formats: ['code_39', 'codabar', 'ean_13']});
-        // BarcodeDetector.getSupportedFormats()
-        // .then(supportedFormats => {
+    const handleClose = () => {
+        setShowPopup(false);
+    }
+
     
-        //   const barcodeDetector = new BarcodeDetector({formats: supportedFormats})
-        //   const reader = new FileReader();
-    
-        //   reader.onload = function(e) {
-        //     const img = new Image()
-        //     img.src = e.target.result
-    
-        //     img.decode().then(() => {
-        //       barcodeDetector.detect(img)
-        //       .then(barcodes => {
-        //         barcodes.forEach(barcode => console.log(barcode));
-        //       })
-        //       .catch(err => {
-        //         console.log(err);
-        //       })
-        //     })
-        //   };
-    
-        //   reader.readAsDataURL(imageFile);
-        // });
-      }
 
     return (
         <div>
@@ -104,6 +89,7 @@ const NewPantryItemForm = () => {
                 <Form.Label as = 'h4'>UPC Barcode Picture</Form.Label>
                 <Form.File  id="custom-file" onChange = {upcSearch}/>
             </Form> */}
+            <SearchFail show ={showPopup} handleClose ={handleClose}/>
         </div>
     )
 

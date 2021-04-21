@@ -7,6 +7,7 @@ import {DragDropContext,Droppable} from 'react-beautiful-dnd';
 import PantryItemListElement from '../../components/PantryItems/PantryItemListElement'
 
 const RecipeFilter = () => {
+
     const pantryItems = useSelector(state => state.pantryItems)
     const filterList = useSelector(state => state.filterBy)
     const [placeHolder, setPlaceHolder] = useState()
@@ -17,7 +18,6 @@ const RecipeFilter = () => {
 
     const dragEnd = (result) =>{
         const { destination, source, draggableId} = result
-        
         if (!destination){
             return
         }
@@ -45,7 +45,6 @@ const RecipeFilter = () => {
 
     return(
         <DragDropContext onDragEnd={dragEnd}>
-            <Col>
                 <Row>
                 <h2>Your Pantry</h2>
                 <Droppable droppableId={"pantry"}>
@@ -57,7 +56,6 @@ const RecipeFilter = () => {
                     )}
                 </Droppable>
                 </Row>
-                <Row>
                 <h2>Show Recipes that include these Ingredients</h2>
                 <Droppable droppableId={"filter"}>
                     {(provided) => (
@@ -67,9 +65,6 @@ const RecipeFilter = () => {
                         </ListGroup>
                     )}
                 </Droppable>
-                </Row>
-
-            </Col>
         </DragDropContext>
     )
 
