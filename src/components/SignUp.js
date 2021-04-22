@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
 // const BASE_URL = 'http://localhost:3000'
 
-const SignUp = () => {
+const SignUp = ({history}) => {
 
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
@@ -35,6 +35,7 @@ const SignUp = () => {
           .then(res => res.json())
           .then(data => { 
             localStorage.setItem("token",data.jwt)
+            debugger
             dispatch({
               type: 'SET_USERNAME',
               username: JSON.parse(data.user).username
@@ -47,6 +48,11 @@ const SignUp = () => {
               type: 'SET_LOGGED_IN',
               loggedIn: true
             })
+            history.push('/')
+        })
+        .catch(error => {
+          console.log(error)
+          alert('Your email or password did not meet requirements')
         })
         e.target.reset()
         setEmail("")

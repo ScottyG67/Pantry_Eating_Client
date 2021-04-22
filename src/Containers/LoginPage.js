@@ -5,16 +5,16 @@ import {Container, Row, Col} from 'react-bootstrap'
 import Login from '../components/Login'
 import SignUp from '../components/SignUp'
 
-function LoginPage() {
+function LoginPage({history}) {
     
     return (
         <Container >
             <Row>
                 <Col>
-                    <Login />
+                    <Login history={history}/>
                 </Col>
                 <Col>
-                    <SignUp />
+                    <SignUp history={history}/>
                 </Col>
             </Row>
         </Container>

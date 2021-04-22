@@ -1,6 +1,6 @@
 
 import './App.css';
-import {Navbar, Nav, Button, ListGroup} from 'react-bootstrap'
+import {Navbar, Nav, Button, NavDropdown, ListGroup} from 'react-bootstrap'
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector } from 'react-redux';
 
@@ -21,17 +21,21 @@ import Logout from './components/Logout'
 import BasicLoginForm from './components/BasicLoginForm'
 import About from './components/About'
 import PantryPage from './containers/PantryPageContiners/PantryPage'
+import {ConfirmAccountDelete,AccountDeletedConf} from './components/PopupMessages'
 
 
 
 
 function App() {
-  const username = useSelector(state => state.username)
+  const userId = useSelector(state => state.userId)
   const loggedIn = useSelector(state => state.loggedIn)
   const [showLoginForm,setShowLoginForm] = useState(false)
   const [showLoginPage,setShowLoginPage] = useState(false)
   const token = localStorage.getItem('token')
   const BASE_URL = useSelector(state => state.BASE_URL)
+
+  const [showDltWarn, setShowDltWarn] = useState(false);
+  const [showAccDltConf, setShowAccDltConf] = useState(false);
 
   const dispatch = useDispatch()
 
@@ -74,17 +78,57 @@ function App() {
     } 
   },[loggedIn])
   
+  const logout = () => {
+
+    localStorage.removeItem('token')
+    dispatch({
+        type: 'RESET'
+    })
+  }
+  const handleDltWarnClose = () => {
+    setShowDltWarn(false);
+  }
+
+  const handleDltConfClose = () => {
+    setShowAccDltConf(false);
+  }
+
+  const deleteAccount =() => {
+    debugger
+
+    const reqObj = {
+      method: "DELETE",
+      headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+      },
+  }
+
+  fetch(`${BASE_URL}/api/v1/users/${userId}`,reqObj)
+      .then( resp => resp.json() )
+      .then(deleteAccount => {
+        console.log(deleteAccount)
+        setShowAccDltConf(true)
+        
+        history.push('/')
+      })
+  }
 
 
   return (
     <div className="App">
       <Navbar bg = 'light' expand = 'lg' fixed="top">
         <Navbar.Brand>Pantry Eating</Navbar.Brand>
-        
         <Nav className="mr-auto">
           <Nav.Link onClick={()=>history.push('/')}>Home</Nav.Link>
           <Nav.Link onClick={()=>history.push("/my_pantry")}>My Pantry</Nav.Link>
           <Nav.Link onClick={()=>history.push("/about")}>About</Nav.Link>
+          {loggedIn?(<NavDropdown title="My Account" id="basic-nav-dropdown">
+            <NavDropdown.Item onClick ={logout}> Logout</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.1">Reset Password</NavDropdown.Item>
+            <NavDropdown.Item onClick ={()=>setShowDltWarn(true)}>Delete Account</NavDropdown.Item>
+          </NavDropdown>):null}
         </Nav>
         {loggedIn? <Logout className="mr-sm-2"/>:showLoginForm?<BasicLoginForm />:<Button onClick={()=>{setShowLoginForm(!showLoginForm)}} className="mr-sm-2">Login</Button>}
         {loggedIn?null:showLoginPage?null:<Button className="nav-btn-left" onClick={()=>history.push('/signup')} >SignUp</Button>}
@@ -100,6 +144,8 @@ function App() {
               <About />
             </Route>    
       </Router>
+      <ConfirmAccountDelete show ={showDltWarn} handleClose ={handleDltWarnClose} deleteAccount={deleteAccount} />
+      <AccountDeletedConf show ={showAccDltConf} handleClose ={handleDltConfClose} deleteAccount={deleteAccount} />
     </div>
   );
 }

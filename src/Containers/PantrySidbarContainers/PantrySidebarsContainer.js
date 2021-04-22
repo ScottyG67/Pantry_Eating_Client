@@ -191,7 +191,6 @@ const UserPantrySidebars = ({toggleMenu}) => {
 
     return (
         <>
-            <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteItem} />
             <div id="sidebar">
                 <div>
                     <DragDropContext onDragEnd={dragEnd}>
@@ -210,8 +209,7 @@ const UserPantrySidebars = ({toggleMenu}) => {
             {showFilter?(<div id ="sidebar_2">
                                 <RecipeFilter />
                             </div>):(null)}
-
-           
+            <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteItem} />
         </>
     )
 }

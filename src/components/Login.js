@@ -7,7 +7,7 @@ import{LoginFail} from './PopupMessages'
 
 
 
-const Login = () => {
+const Login = ({history}) => {
 
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
@@ -48,6 +48,7 @@ const Login = () => {
           .then(data => { 
             if(!data.error){
               setUserLogin(data)
+              history.push('/')
             }
           })
           .catch(error => {
