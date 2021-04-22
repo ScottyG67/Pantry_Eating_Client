@@ -102,7 +102,6 @@ const Recipes = () => {
 
     return(
         <div id="content">
-            <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteRecipe} />
             <Row>
                 <RecipesSearchContainer />
             </Row>
@@ -115,6 +114,7 @@ const Recipes = () => {
                     </div>
                 </Col>:null}
             </Row>
+            <ConfirmDelete show ={show} handleClose ={handleClose} deleteObject={deleteRecipe} />
         </div>
     )
 }

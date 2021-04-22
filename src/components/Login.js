@@ -2,6 +2,8 @@ import {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from "react-bootstrap";
 
+import{LoginFail} from './PopupMessages'
+
 
 
 
@@ -9,9 +11,17 @@ const Login = () => {
 
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
+    const [showError, setShowError] = useState(false);
 
     const dispatch = useDispatch()
     const BASE_URL = useSelector(state => state.BASE_URL)
+
+    const handleShowPopup = () => {
+      setShowError(true);
+    }
+    const handleClose = () => {
+        setShowError(false);
+      }
 
 
     const login = (e) => {
@@ -36,12 +46,14 @@ const Login = () => {
         fetch(`${BASE_URL}/api/v1/login`, reqObj)
           .then(res => res.json())
           .then(data => { 
-            setUserLogin(data)
-            // getSavedData(data)
+            if(!data.error){
+              setUserLogin(data)
+            }
           })
           .catch(error => {
             console.log(error)
-            alert("there was an error")})
+            handleShowPopup()
+          })
 
         setEmail("")
         setPassword("")
@@ -79,6 +91,7 @@ const Login = () => {
                 </Form.Group>
                 <Button variant="primary" type="submit">Log In</Button>
             </Form>
+            <LoginFail show ={showError} handleClose ={handleClose}/>
         </div>
     )
 

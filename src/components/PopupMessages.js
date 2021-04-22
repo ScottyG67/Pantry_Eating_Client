@@ -52,3 +52,15 @@ export const ConfirmDelete = ({show, handleClose, deleteObject}) => {
         </Modal>
     )
   }
+
+  export const LoginFail = ({show, handleClose}) => {
+  
+    return (
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Try Again</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>There was a problem with your username or password</Modal.Body>
+        </Modal>
+    )
+  }
