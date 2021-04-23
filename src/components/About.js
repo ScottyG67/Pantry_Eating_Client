@@ -23,15 +23,16 @@ const About = () => {
                     <Card.Text>Pantry Eating is my Software Engineering capstone project for FlatIron School. It was built in two and a half weeks and incorporates the following technologies and techniques:</Card.Text>
                     <Row>
                         <Col>
-                            <ul>
+                            <ul style={{textAlign: 'left'}}>
                                 <li>Ruby On Rails as an API for the backend</li>
                                 <li>Authentication using ByCrypt and JWT</li>
                                 <li>PostgreSQL database</li>
-                                <li>API Integration with Edamam for recipes and ingredients </li>
+                                <li>Action Mailer for email conformation</li>
+                                <li>API Integration with Edamam for recipes and ingredients</li>
                             </ul>
                         </Col>
                         <Col>
-                            <ul>
+                            <ul style={{textAlign: 'left'}}>
                                 <li>React frontend with only functional components</li>
                                 <li>Redux state</li>
                                 <li>Client side routing using React Router</li>

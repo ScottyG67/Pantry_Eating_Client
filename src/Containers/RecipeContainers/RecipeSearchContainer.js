@@ -81,15 +81,14 @@ const RecipesSearchContainer = () => {
 
     const renderFilterOrAll = () => {
         if(filterBy.length > 0){
-            return filteredRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleLogInPopupClose} btnTxt={loggedIn?'Save':'Sign in'}/>)
+            return filteredRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleLoginPopupShow} btnTxt={loggedIn?'Save':'Sign in'}/>)
         }
-        return searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleLogInPopupClose} btnTxt={loggedIn?'Save':'Sign in'}/>)
+        return searchRecipes.map(recipe => <RecipeCard recipe={recipe.recipe}  clickAction = {loggedIn?saveRecipe:handleLoginPopupShow} btnTxt={loggedIn?'Save':'Sign in'}/>)
     }
 
     return(
         <>
             <Container>
-                
                 <Row>
                     <Col>
                         <RecipesSearchForm />
@@ -98,8 +97,8 @@ const RecipesSearchContainer = () => {
                         </div>
                     </Col>
                 </Row>
-                <SignInPopup show ={ShowLoginPopup} handleClose ={handleLogInPopupClose}/>
             </Container>
+            <SignInPopup show ={ShowLoginPopup} handleClose ={handleLogInPopupClose}/>
             <ConfirmSaved show ={ShowSavePopup} handleClose ={handleSavePopupClose}/>
         </>
     )

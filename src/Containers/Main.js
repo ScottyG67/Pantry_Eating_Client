@@ -6,6 +6,7 @@ import RecipesContainer from './RecipeContainers/RecipesContainer'
 
 import { useDispatch, useSelector } from 'react-redux';
 import {useEffect, useState} from 'react'
+import { FileEarmarkEasel } from 'react-bootstrap-icons';
 
 
 const Main = ({history}) => {
@@ -20,8 +21,14 @@ const Main = ({history}) => {
     }
   })
 
-  const toggleMenu = () =>{
-    setMenuOpen(!menuOpen)
+  const toggleMenu = (showFilter,showSearch) =>{
+    
+    if(showFilter || showSearch){
+      setMenuOpen(false)
+    } else{
+      setMenuOpen(true)
+    }
+    // setMenuOpen(!menuOpen)
   }
 
   const getSpacerClassName = () => {

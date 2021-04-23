@@ -33,25 +33,25 @@ const SignUp = ({history}) => {
     
         fetch(`${BASE_URL}/api/v1/users`, reqObj)
           .then(res => res.json())
-          .then(data => { 
+          .then(data => {
             localStorage.setItem("token",data.jwt)
-            debugger
             dispatch({
               type: 'SET_USERNAME',
-              username: JSON.parse(data.user).username
+              username: data.user.username
             })
             dispatch({
               type: 'SET_USER_ID',
-              username: JSON.parse(data.user).id
+              username: data.user.id.toString()
             })
             dispatch({
               type: 'SET_LOGGED_IN',
               loggedIn: true
             })
-            history.push('/')
+            // history.push('/')
         })
         .catch(error => {
           console.log(error)
+          localStorage.clear()
           alert('Your email or password did not meet requirements')
         })
         e.target.reset()

@@ -86,12 +86,12 @@ const UserPantrySidebars = ({toggleMenu}) => {
     const toggleShowSearch = () => {
         setShowSearch(!showSearch)
         setShowFilter(false)
-        toggleMenu()
+        toggleMenu(showFilter,showSearch)
     }
     const toggleShowFilter = () => {
         setShowFilter(!showFilter)
         setShowSearch(false)
-        toggleMenu()
+        toggleMenu(showFilter,showSearch)
     }
 
     const handleShow = (item) => {

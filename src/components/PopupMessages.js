@@ -34,9 +34,9 @@ export const ConfirmDelete = ({show, handleClose, deleteObject}) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Recipe Saved</Modal.Title>
+                <Modal.Title>Saved!</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Excellent Choice. The recipe has been added to your saved recipes.</Modal.Body>
+            <Modal.Body>Excellent Choice.</Modal.Body>
         </Modal>
     )
   }

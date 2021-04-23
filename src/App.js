@@ -94,7 +94,7 @@ function App() {
   }
 
   const deleteAccount =() => {
-    debugger
+    handleDltWarnClose()
 
     const reqObj = {
       method: "DELETE",
@@ -108,9 +108,12 @@ function App() {
   fetch(`${BASE_URL}/api/v1/users/${userId}`,reqObj)
       .then( resp => resp.json() )
       .then(deleteAccount => {
-        console.log(deleteAccount)
-        setShowAccDltConf(true)
         
+        setShowAccDltConf(true)
+        localStorage.removeItem('token')
+        dispatch({
+            type: 'RESET'
+        })
         history.push('/')
       })
   }
@@ -122,7 +125,7 @@ function App() {
         <Navbar.Brand>Pantry Eating</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link onClick={()=>history.push('/')}>Home</Nav.Link>
-          <Nav.Link onClick={()=>history.push("/my_pantry")}>My Pantry</Nav.Link>
+          {loggedIn?(<Nav.Link onClick={()=>history.push("/my_pantry")}>My Pantry</Nav.Link>):(null)}
           <Nav.Link onClick={()=>history.push("/about")}>About</Nav.Link>
           {loggedIn?(<NavDropdown title="My Account" id="basic-nav-dropdown">
             <NavDropdown.Item onClick ={logout}> Logout</NavDropdown.Item>
