@@ -4,13 +4,6 @@ import {Navbar, Nav, Button, NavDropdown, ListGroup} from 'react-bootstrap'
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector } from 'react-redux';
 
-// import { 
-//   BrowserRouter as Router, 
-//   Route, 
-//   Redirect,
-//   Switch
-// } from 'react-router-dom';
-
 import {Router, Route} from 'react-router'
 import history from './history'
 
